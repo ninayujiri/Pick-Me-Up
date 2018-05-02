@@ -17,8 +17,8 @@ We are going to define the urls and redirects to be used on our website
 
 
 - restaurants/ GET
-  - logout
-  - register
+  - logout DELETE
+  - register GET, POST
   - :restaurantID/dishes GET
   - dishes PUT
   - dishes/new GET
