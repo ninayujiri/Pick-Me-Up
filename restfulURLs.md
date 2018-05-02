@@ -1,7 +1,7 @@
 # API Design
 We are going to define the urls and redirects to be used on our website
 
-- "http://www.happyhour.com/"
+- <!http://www.happyhour.com/">
 - register GET
   - /customers POST
 
