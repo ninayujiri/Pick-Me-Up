@@ -1,5 +1,5 @@
 "use strict";
-
+const tokens = require("./apiData/twilioInfo.js")
 require('dotenv').config();
 
 const PORT        = process.env.PORT || 8080;
@@ -14,8 +14,15 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
+const twilioAccountSid  = tokens.twilioID;
+const twilioToken       = tokens.twilioToken;
+const twilio            = require('twilio');
+const twilioClient      = new twilio(twilioAccountSid,twilioToken);
+
+
 // Seperated Routes for each Resource
-const usersRoutes = require("./routes/users");
+const usersRoutes = require("./routes/users")(knex);
+const restoRoutes = require("./routes/restarant")(knex);
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -36,7 +43,8 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
+// app.use("/users", usersRoutes);
+app.use("/restaurants", restoRoutes);
 
 // Home page
 app.get("/", (req, res) => {
