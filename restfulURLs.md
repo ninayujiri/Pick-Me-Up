@@ -2,19 +2,27 @@
 We are going to define the urls and redirects to be used on our website
 
 - "http://www.happyhour.com/"
-- register/
-  - register/restaurant
-  - register/customer
+- register GET
+  - /customers POST
 
-- login/
-  - login/restaurant
-  - login/customer
+- login GET, POST
+
+- logout DELETE
   
-- customers/
-  - :customerID/
-  - :customerID/checkout
+- customers 
+  - /:id GET
 
-- restaurant/:restaurantID/
-  - dishes/
-  - orders/ 
-  - orders/:orderID
+
+- orders PUT
+
+
+- restaurants/ GET
+  - logout
+  - register
+  - :restaurantID/dishes GET
+  - dishes PUT
+  - dishes/new GET
+  - dishes/:id PUT
+  - dishes/:id/edit GET
+  - :restaurantID/orders GET
+  - orders/:id GET
