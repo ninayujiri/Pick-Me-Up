@@ -55,6 +55,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+
 // Add new item page for restaurants
 app.get("/dishes_new", (req, res) => {
   res.render("dishes_new");
@@ -63,6 +64,11 @@ app.get("/dishes_new", (req, res) => {
 // Orders page
 app.get("/orders", (req, res) => {
   res.render("orders");
+});
+
+// Menu page
+app.get("/dishes", (req, res) => {
+  res.render("dishes");
 });
 
 app.listen(PORT, () => {
