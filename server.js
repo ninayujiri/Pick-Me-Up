@@ -25,6 +25,7 @@ const twilioClient      = new twilio(twilioAccountSid,twilioToken);
 const usersRoutes = require("./routes/users")(knex);
 const restoRoutes = require("./routes/restaurant")(knex);
 const smsRoutes = require("./routes/sms")();
+const ordersRoutes = require("./routes/orders");
 
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -55,15 +56,14 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+
 // Add new item page for restaurants
 app.get("/dishes_new", (req, res) => {
   res.render("dishes_new");
 });
 
 // Orders page
-app.get("/orders", (req, res) => {
-  res.render("orders");
-});
+
 
 // Menu page
 app.get("/dishes", (req, res) => {

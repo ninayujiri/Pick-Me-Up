@@ -62,8 +62,21 @@ module.exports = (knex) => {
           .then(res.status(200).send());
       });
   });
+//  Renders the orders table for the restaurant owner
+  router.get("/:restaurantID/orders", (req,res) => {
+    const restaurantID = req.params.restaurantID;
 
-
+    knex.select('order_items.id', 'order_items.quantity', 'dishes.dish_name', 'orders.created_at', 'accounts.name', 'accounts.phone_number', 'orders.payment_method')
+    .from('order_items')
+    .join('orders', 'order_items.order_id','=','orders.id')
+    .join('accounts', 'orders.account_id','=', 'accounts.id')
+    .join('dishes', 'order_items.dish_id','=','dishes.id')
+    .where('dishes.account_id', restaurantID)
+    .then((result)=>{
+      console.log(result);
+      res.status(200).json(result);
+    });
+  });
 
   return router;
 }
