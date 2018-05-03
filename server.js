@@ -64,7 +64,6 @@ app.get("/dishes_new", (req, res) => {
 // Orders page
 app.get("/orders", (req, res) => {
   res.render("orders");
-});
 
 // Menu page
 app.get("/dishes", (req, res) => {
