@@ -55,6 +55,11 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+// Menu page
+app.get("/dishes", (req, res) => {
+  res.render("dishes");
+});
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
