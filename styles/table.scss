@@ -1,0 +1,111 @@
+
+$color_grey: #eee;
+
+@mixin border-radius($p) {
+    border-radius: $p;
+    -moz-border-radius: $p;
+    -webkit-border-radius: $p;
+}
+
+@mixin box-shadow($v) {
+    box-shadow: $v;
+    -moz-box-shadow: $v;
+    -webkit-box-shadow: $v;
+}
+
+@mixin box-sizing($b) {
+    box-sizing: $b;
+    -moz-box-sizing: $b;
+    -webkit-box-sizing: $b;
+}
+
+@mixin placeholder-color($c) {
+    ::-webkit-input-placeholder {color: $c;}
+    :-moz-placeholder {color: $c;}
+    ::-moz-placeholder {color: $c;}
+    :-ms-input-placeholder {color: $c;}
+}
+
+@mixin transition($t) {
+    transition: $t;
+    -moz-transition: $t;
+    -webkit-transition: $t;
+    -o-transition: $t;
+    -ms-transition: $t;
+}
+
+@mixin transform($r) {
+    transform: $r;
+    -ms-transform: $r;
+    -moz-transform: $r;
+    -webkit-transform: $r;
+}
+//how to use
+//@include border-radius(0);
+//@include box-shadow(none);
+//
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes $animation-name {
+    @content;
+  }
+  @-moz-keyframes $animation-name {
+    @content;
+  }
+  @keyframes $animation-name {
+    @content;
+  }
+}
+
+
+/* Retina sample */
+// .img-retina {
+//   background-image: url("img/example-img.jpg");
+//   background-size: 320px 320px; // wrapper width and height
+// }
+
+// @media only screen and (-webkit-min-device-pixel-ratio: 2),
+//        only screen and (   min--moz-device-pixel-ratio: 2),
+//        only screen and (     -o-min-device-pixel-ratio: 2/1),
+//        only screen and (        min-device-pixel-ratio: 2),
+//        only screen and (                min-resolution: 192dpi),
+//        only screen and (                min-resolution: 2dppx) {
+//     background-image: url("img/example-img@2x.jpg");
+//     background-size: 320px 320px;  // wrapper width and height
+// }
+
+
+main {
+    table {
+        th.btn-status, td.btn-status {
+            border:none;
+        }
+    }
+    h3 {
+        width: 100%;
+    }
+    form {
+        margin: 0 auto;
+        width: 600px;
+        .img-uploader {
+            border: 1px dashed $color_grey;
+            float: left;
+            height: 100px;
+            margin-bottom: 100px
+        }
+        input, textarea {
+            @include placeholder-color($color_grey);
+            border: 1px solid $color_grey;
+            float: left;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            width: 200px;
+        }
+        textarea {
+            border: 1px solid $color_grey;
+            width: 410px;
+        }
+
+    }
+}
+
+
