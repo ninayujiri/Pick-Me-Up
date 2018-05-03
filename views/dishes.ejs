@@ -47,34 +47,21 @@
    </div>
 
    <div class="container">
-      <div class="card-deck">
-        <div class="card">
-          <img class="card-img-top" src="https://s3.us-east-2.amazonaws.com/pick-me-up-midterm/01.jpg" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Bronx Bomber</h5>
-            <p class="card-text">Pastrami & Egg Salad w/ Lettuce, Tomato and Onion.</p>
-            <p class="card-text">$9.95</p>
-            <button type="button" class="btn btn-secondary">Add to Cart</button>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="https://s3.us-east-2.amazonaws.com/pick-me-up-midterm/02.jpg" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Hell's Kitchen</h5>
-            <p class="card-text">Bacon, Swiss, Egg Salad, Cajun Sauce, Avocado, Lettuce, Tomato, Onion.</p>
-            <p class="card-text">$9.95</p>
-            <button type="button" class="btn btn-secondary">Add to Cart</button>
 
-          </div>
-        </div>
-         <div class="card">
-          <img class="card-img-top" src="https://s3.us-east-2.amazonaws.com/pick-me-up-midterm/04.jpg" alt="Card image cap">
+      <div class="card-deck">
+
+      <% for(let dish of dishes) { %>
+        <div class="card">
+          <img class="card-img-top" src="${#}" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Vegetarian Breakfast</h5>
-            <p class="card-text">Scrambled eggs, roasted peppers, potatoes, cheese, green beans, and arugula.</p>
-            <p class="card-text">$10.95</p>
+            <h5 class="card-title"><%= dish.dish_name %></h5>
+            <p class="card-text"><%= dish.description %></p>
+            <p class="card-text"><%=dish.price%></p>
             <button type="button" class="btn btn-secondary">Add to Cart</button>
           </div>
+        </div>
+      <% } %>
+
         </div>
       </div>
    </div>
@@ -83,3 +70,5 @@
 
   </body>
 </html>
+
+
