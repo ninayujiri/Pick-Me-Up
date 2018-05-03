@@ -1,5 +1,6 @@
 
 $color_grey: #eee;
+$color_black: #555;
 
 @mixin border-radius($p) {
     border-radius: $p;
@@ -56,24 +57,6 @@ $color_grey: #eee;
   }
 }
 
-
-/* Retina sample */
-// .img-retina {
-//   background-image: url("img/example-img.jpg");
-//   background-size: 320px 320px; // wrapper width and height
-// }
-
-// @media only screen and (-webkit-min-device-pixel-ratio: 2),
-//        only screen and (   min--moz-device-pixel-ratio: 2),
-//        only screen and (     -o-min-device-pixel-ratio: 2/1),
-//        only screen and (        min-device-pixel-ratio: 2),
-//        only screen and (                min-resolution: 192dpi),
-//        only screen and (                min-resolution: 2dppx) {
-//     background-image: url("img/example-img@2x.jpg");
-//     background-size: 320px 320px;  // wrapper width and height
-// }
-
-
 main {
     table {
         th.btn-status, td.btn-status {
@@ -103,6 +86,13 @@ main {
         textarea {
             border: 1px solid $color_grey;
             width: 410px;
+        }
+        .btn {
+            background-color: $color_grey;
+            border: 1px solid $color_grey;
+            border-radius: 0;
+            color: $color_grey;
+            margin-left: 10px;
         }
 
     }
