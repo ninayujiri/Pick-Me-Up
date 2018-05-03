@@ -1,0 +1,20 @@
+header.masthead {
+  position: relative;
+  background-color: #f9f9f9;
+  background: url('/assets/banner.jpg') no-repeat center center;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+
+  h1 {
+    font-size: 2rem;
+    color: #fff;
+  }
+
+  @media (min-width: 768px) {
+    padding-top: 12rem;
+    padding-bottom: 12rem;
+    h1 {
+      font-size: 3rem;
+    }
+  }
+}

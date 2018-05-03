@@ -1,7 +1,19 @@
+@import "_masthead";
+@import "_footer";
+@import "_variables";
+
+
 body {
   background-color: #EEE;
+
+  nav {
+    padding-top: 2em;
+    padding-bottom: 2em;
+
+  }
 
   h1 {
     color: #244751;
   }
 }
+
