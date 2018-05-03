@@ -1,10 +1,17 @@
 @import "_masthead";
+@import "_dishes";
 @import "_footer";
-@import "_variables";
+
+
+$redOrange: #d9532d;
+$black: #000;
+$white: #fff;
+$gray: #f9f9f9;
+$darkGray: #adadad;
 
 
 body {
-  background-color: #EEE;
+  background-color: $white;
 
   nav {
     padding-top: 2em;
@@ -16,8 +23,8 @@ body {
     }
 
     .btn-danger {
-      background-color: #d9532d;
-      border-color: #d9532d;
+      background-color: $redOrange;
+      border-color: $redOrange;
     }
   }
 

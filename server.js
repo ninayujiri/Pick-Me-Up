@@ -70,6 +70,11 @@ app.get("/dishes", (req, res) => {
   res.render("dishes");
 });
 
+// Menu page
+app.get("/dishes", (req, res) => {
+  res.render("dishes");
+});
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });

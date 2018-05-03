@@ -28,7 +28,7 @@ module.exports = (knex) => {
         account_id  : accountID
       })
       .returning('id')
-      .then(res.status(200).json(id));
+      .then(id=>{res.status(200).json(id)});
   });
 
 //  Edits an individual dish
