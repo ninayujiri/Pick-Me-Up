@@ -66,17 +66,16 @@ module.exports = (knex) => {
   router.get("/:restaurantID/orders", (req,res) => {
     const restaurantID = req.params.restaurantID;
 
-    knex.select('orders.id', 'order_items.quantity', 'orders.created_at', 'orders.payment_method', 'dishes.dish_name', 'accounts.name', 'accounts.phone_number')
+    knex.select('order_items.id', 'order_items.quantity', 'dishes.dish_name', 'orders.created_at', 'accounts.name', 'accounts.phone_number', 'orders.payment_method')
     .from('order_items')
-    .join('orders', 'order_items.order_id','=', 'orders.id')
-    .join('accounts', 'orders.account_id', '=', 'accounts.id')
-    .join('dishes', 'accounts.id', '=', 'dishes.account_id')
-    .where('accounts.id', restaurantID)
-    .then((result) =>{
+    .join('orders', 'order_items.order_id','=','orders.id')
+    .join('accounts', 'orders.account_id','=', 'accounts.id')
+    .join('dishes', 'order_items.dish_id','=','dishes.id')
+    .where('dishes.account_id', restaurantID)
+    .then((result)=>{
       console.log(result);
+      res.status(200).json(result);
     });
-
-
   });
 
   return router;
