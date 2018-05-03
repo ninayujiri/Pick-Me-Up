@@ -43,7 +43,7 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-// app.use("/users", usersRoutes);
+app.use("/api/users", usersRoutes);
 app.use("/restaurants", restoRoutes);
 
 // Home page
