@@ -55,6 +55,16 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+// Add new item page for restaurants
+app.get("/dishes_new", (req, res) => {
+  res.render("dishes_new");
+});
+
+// Orders page
+app.get("/orders", (req, res) => {
+  res.render("orders");
+});
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
