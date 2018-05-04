@@ -152,12 +152,26 @@ main {
 
         }
     }
+    // orders
+    h2 {
+        font-size: 1.1rem;
+    }
     table {
         margin-bottom: 2rem !important;
+        thead tr > th, tbody tr > td {
+            text-transform: capitalize;
+        }
         tr {
-            &.table-success {
+            &.completed {
                 background-color: $color_grey;
             }
         }
     }
+}
+
+
+
+/* shopping cart */
+#cart_detail {
+    display: none;
 }
