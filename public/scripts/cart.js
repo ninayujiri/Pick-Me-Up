@@ -42,8 +42,8 @@ $( document ).ready(function(){
       $("#data").val(data);        //set POST[data] with cart contents
   }
     /* POST the form */
-    $(document).on('click',"#go_cart",function(){
-      document.form.submit();
+    $(document).on('click',"#go_cart",function() {
+      $('#orderForm').submit();
     });
 
   /* Close the cart */
