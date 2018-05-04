@@ -7,10 +7,11 @@ module.exports = (knex) => {
 
   router.get("/", (req, res) => {
     knex
-      .select("*")
-      .from("users")
+      .select('*')
+      .from('accounts')
       .then((results) => {
         res.json(results);
+       console.log(res.json(results));
     });
   });
 
