@@ -47,20 +47,19 @@
    </div>
 
    <div class="container">
-
       <div class="card-deck">
 
-      <% for(let dish of dishes) { %>
-        <div class="card">
-          <img class="card-img-top" src="${#}" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title"><%= dish.dish_name %></h5>
-            <p class="card-text"><%= dish.description %></p>
-            <p class="card-text"><%=dish.price%></p>
-            <button type="button" class="btn btn-secondary">Add to Cart</button>
+        <% for(let dish of dishes) { %>
+          <div class="card">
+            <img class="card-img-top" src="${#}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title"><%= dish.dish_name %></h5>
+              <p class="card-text"><%= dish.description %></p>
+              <p class="card-text">$<%=dish.price%></p>
+              <button type="button" class="btn btn-secondary">Add to Cart</button>
+            </div>
           </div>
-        </div>
-      <% } %>
+        <% } %>
 
         </div>
       </div>
