@@ -24,7 +24,7 @@ const twilioClient      = new twilio(twilioAccountSid,twilioToken);
 // Seperated Routes for each Resource
 const accountRoutes = require("./routes/accounts")(knex);
 const restoRoutes = require("./routes/restaurant")(knex);
-const smsRoutes = require("./routes/sms")();
+const smsRoutes = require("./routes/sms")(twilioClient);
 const ordersRoutes = require("./routes/orders");
 const dishesRoutes = require("./routes/dishes")(knex);
 
