@@ -62,8 +62,14 @@ module.exports = (knex) => {
           .then(res.status(200).send());
       });
   });
-//  Renders the orders table for the restaurant owner
+
   router.get("/:restaurantID/orders", (req,res) => {
+    res.render("../views/orders.ejs");
+  });
+
+
+//  Renders the orders table for the restaurant owner
+  router.get("/:restaurantID/orders/fetch", (req,res) => {
     const restaurantID = req.params.restaurantID;
 
     knex.select('order_items.id', 'order_items.quantity', 'dishes.dish_name', 'orders.created_at', 'accounts.name', 'accounts.phone_number', 'orders.payment_method')
@@ -73,16 +79,10 @@ module.exports = (knex) => {
     .join('dishes', 'order_items.dish_id','=','dishes.id')
     .where('dishes.account_id', restaurantID)
     .then((result)=>{
-      console.log(result);
+      // console.log(result);
       res.status(200).json(result);
     });
   });
 
   return router;
 }
-
-
-/*
-SELECT * FROM accounts
-WHERE type = 'Restaurant'
-*/
