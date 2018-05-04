@@ -2,7 +2,6 @@
 <html lang="en">
 
   <% include ./partials/_header %>
-
    <div class="wrapper">
      <div class="row float-right">
         <div class="col">
@@ -10,6 +9,15 @@
             <span class="text-muted">Your cart</span>
             <span class="badge badge-secondary badge-pill">3</span>
           </h4>
+          <div id="cart_detail">
+            <div id="close_cart">
+              <span class="glyphicon glyphicon-remove" title="CLOSE"></span>
+            </div>
+            <div id="foods_list"></div>
+            <div id="go_cart">
+              <a href="#" class="btn btn-warning btn-sm">To Oder Form <span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+          </div>
           <ul class="list-group mb-3">
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
@@ -53,8 +61,17 @@
           <div class="card-body">
             <h5 class="card-title">Bronx Bomber</h5>
             <p class="card-text">Pastrami & Egg Salad w/ Lettuce, Tomato and Onion.</p>
-            <p class="card-text">$9.95</p>
-            <button type="button" class="btn btn-secondary">Add to Cart</button>
+            <p class="card-text">$10.00</p>
+            <select class="items" id="bronx-bomber">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <button type="button" class="btn btn-secondary add-foods" data-id="#bronx-bomber" data-name="Bronx Bomber"
+              data-price="9.95" data-number='01'>Add to Cart</button>
+
           </div>
         </div>
         <div class="card">
@@ -62,9 +79,16 @@
           <div class="card-body">
             <h5 class="card-title">Hell's Kitchen</h5>
             <p class="card-text">Bacon, Swiss, Egg Salad, Cajun Sauce, Avocado, Lettuce, Tomato, Onion.</p>
-            <p class="card-text">$9.95</p>
-            <button type="button" class="btn btn-secondary">Add to Cart</button>
-
+            <p class="card-text">$9.00</p>
+            <select class="items" id="hells-kitchen">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <button type="button" class="btn btn-secondary add-foods" data-id="#hells-kitchen" data-name="hells kitchen"
+              data-price="9.95" data-number='02'>Add to Cart</button>
           </div>
         </div>
          <div class="card">
@@ -73,7 +97,15 @@
             <h5 class="card-title">Vegetarian Breakfast</h5>
             <p class="card-text">Scrambled eggs, roasted peppers, potatoes, cheese, green beans, and arugula.</p>
             <p class="card-text">$10.95</p>
-            <button type="button" class="btn btn-secondary">Add to Cart</button>
+            <select class="items" id="vegetarian-breakfast">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <button type="button" class="btn btn-secondary add-foods" data-id="#vegetarian-breakfast" data-name="Vegetarian Breakfast"
+              data-price="10.95" data-number="03">Add to Cart</button>
           </div>
         </div>
       </div>
