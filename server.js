@@ -52,6 +52,7 @@ app.use(methodOverride("_method"));
 // app.use("/api/users", usersRoutes);
 app.use("/restaurants", restoRoutes);
 app.use("/dishes", dishesRoutes);
+app.use("/orders", ordersRoutes);
 
 // Home page
 app.get("/", (req, res) => {
