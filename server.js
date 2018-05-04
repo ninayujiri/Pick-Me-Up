@@ -50,7 +50,7 @@ app.use(methodOverride("_method"));
 // Mount all resource routes
 // app.use("/api/users", usersRoutes);
 app.use("/restaurants", restoRoutes);
-
+app.use("/orders", ordersRoutes);
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
