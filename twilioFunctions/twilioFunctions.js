@@ -7,7 +7,7 @@ module.exports = (twilioClient) => {
     smsRestaurant: () => {
                       twilioClient.messages.create({
                       body: "You have a new order",
-                      to:"",
+                      to:twilioInfo.personal_phone,
                       from: twilioInfo.twilioNumber
                       })
                       .then((message) => console.log(message.sid));
@@ -23,7 +23,7 @@ module.exports = (twilioClient) => {
                           .then((message) => console.log(message.sid));
                       } else {
                         twilioClient.messages.create({
-                          body: "Your order is received by the restauran.",
+                          body: "Your order is received by the restaurant.",
                           to:twilioInfo.personal_phone,
                           from: twilioInfo.twilioNumber
                           })

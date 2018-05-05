@@ -23,7 +23,7 @@ $color_bootstrap_defalt_grey: #ced4da;
     -webkit-box-sizing: $b;
 }
 
-@mixin placeholder($color) {
+@mixin placeholder-color($color) {
   &::placeholder {
     color: $color;
   }
@@ -33,6 +33,24 @@ $color_bootstrap_defalt_grey: #ced4da;
   &::-ms-input-placeholder {
     color: $color;
   }
+}
+
+@mixin placeholder-font($font) {
+  &::placeholder {
+    font-size: $font;
+  }
+  &:-ms-input-placeholder {
+    font-size: $font;
+  }
+  &::-ms-input-placeholder {
+    font-size: $font;
+  }
+}
+
+@mixin appearance($none){
+    appearance: $none;
+    -webkit-appearance: $none;
+    -moz-appearance: $none;
 }
 
 @mixin transition($t) {
@@ -107,7 +125,7 @@ main {
             text-align: center;
         }
         input, textarea {
-            @include placeholder($color_placeholder);
+            @include placeholder-color($color_placeholder);
             border: 1px solid $color_grey;
             color: $color_black;
             float: left;
@@ -179,7 +197,8 @@ main {
         #orderForm {
             border: none;
             input {
-                @include placeholder($color_placeholder);
+                @include placeholder-color($color_placeholder);
+                @include placeholder-font(0.9rem);
             }
             .form-group {
                 margin-bottom: 0;
@@ -200,6 +219,9 @@ main {
                 background-color: $color_grey;
                 border: 1px solid $color_bootstrap_defalt_grey;
                 color: $color_black;
+                &:focus {
+                    box-shadow: none;
+                }
             }
             #order {
                 border: 1px solid $color_red;
@@ -208,6 +230,17 @@ main {
         }
     }
 }
-// #cart_detail {
-//     display: none;
-// }
+
+.card-body {
+    button {
+        &.btn-secondary, &.btn-secondary:not(:disabled):not(.disabled):active:focus {
+            box-shadow: none;
+        }
+    }
+    select {
+        @include appearance(none);
+        height: 30px;
+        padding-left: 5px;
+        width: 40px;
+    }
+}
