@@ -10,7 +10,6 @@ module.exports = (knex, smsFunctions)=>{
     const phone_number = req.body.phone_number;
     const inputDishes = [];
 
-
   knex('accounts').where("phone_number", phone_number).select('phone_number')
   .then((result) =>{
     //  Checks if user exists
