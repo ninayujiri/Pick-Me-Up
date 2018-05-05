@@ -10,6 +10,7 @@ module.exports = (knex, smsFunctions)=>{
     const phone_number = req.body.phone_number;
     const inputDishes = [];
 
+    knex
     //  adds the user to the accounts table. returns the user's id
     //  adding user can be factored out later
     knex('accounts')
@@ -34,7 +35,7 @@ module.exports = (knex, smsFunctions)=>{
         });
         knex('order_items')
         .insert(inputDishes)
-        .then(()=>{
+        .then(() => {
           smsFunctions.smsRestaurant();
           smsFunctions.smsCustomer(false)
         });
