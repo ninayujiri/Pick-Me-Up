@@ -3,6 +3,7 @@ $color_placeholder: #ccc;
 $color_black: #555;
 $color_white: #fff;
 $color_red: #d9532d;
+$color_bootstrap_defalt_grey: #ced4da;
 
 @mixin border-radius($p) {
     border-radius: $p;
@@ -68,23 +69,6 @@ $color_red: #d9532d;
 body {
     background-color: $color_white;
 }
-
-/* sticky footer */
-// html {
-//   min-height: 100%;
-//   position: relative;
-// }
-
-// // body {
-// //   margin-bottom: 5em;
-// // }
-
-// footer {
-//   bottom: 0;
-//   height: 1em;
-//   position: absolute;
-//   width: 100%;
-// }
 
 /* input type number, remove default arrows from the field */
 input[type=number]::-webkit-inner-spin-button,
@@ -174,14 +158,54 @@ main {
 
 
 /* shopping cart */
+.cart.float-right {
+    padding-top: 2.7em;
+}
 .error {
     color: $color_red;
+    font-size: 0.8em;
     display: none;
 }
-#go_cart {
-    .btn {
-        background-color: $color_red;
-        width: 100%;
+.cart {
+    width: 350px;
+    .cart-detail {
+
+    }
+    #go-cart {
+        .btn {
+            background-color: $color_red;
+            width: 100%;
+        }
+        #orderForm {
+            border: none;
+            input {
+                @include placeholder($color_placeholder);
+            }
+            .form-group {
+                margin-bottom: 0;
+            }
+            input {
+                margin-bottom: 0.2rem;
+            }
+            &.p-2 {
+                padding:0 !important;
+            }
+            #reset, #order {
+                @include transition(all 0.3s ease-in-out);
+            }
+            #reset:hover, #order:hover {
+                opacity: 0.5;
+            }
+            #reset {
+                background-color: $color_grey;
+                border: 1px solid $color_bootstrap_defalt_grey;
+                color: $color_black;
+            }
+            #order {
+                border: 1px solid $color_red;
+            }
+
+        }
     }
 }
 // #cart_detail {

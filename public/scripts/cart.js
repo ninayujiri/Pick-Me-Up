@@ -14,7 +14,6 @@ $( document ).ready(function(){
       'sub_total':sub_total,
       'id':data.number
    };
-
    cart_open();
 
   });
@@ -35,9 +34,17 @@ $( document ).ready(function(){
     return output;
   }
 
+  function processError(){
+    $('.form-group').addClass('has-warning');
+    $('.error').fadeIn(1000);
+    $('#user, #phoneNum').on('keyup', function(){
+      $('.error').fadeOut();
+    });
+  }
+
   /* create html for the contents of the cart */
     const cart_open = function(){
-    $("#food_list").html('');
+    $("#foods-list").html('');
 
     let html = '<ul class="list-group mb-3">';
     let key;
@@ -50,19 +57,17 @@ $( document ).ready(function(){
     html += '</ul>';
 
     const data = JSON.stringify(foods);
-      $("#foods_list").html(html); //add html to the top of the cart.
-      $("#cart_detail").show();    //open the cart.
+      $("#foods-list").html(html); //add html to the top of the cart.
+      $("#cart-detail").show();    //open the cart.
       //$("#data").val(data);        //set POST[data] with cart contents
 
-    $(document).on('click','#go_cart_btn',function(e){
+    $(document).on('click','#order',function(e){
       e.preventDefault();
+      let validation = false;
       const user = $('#user').val();
       const phoneNum = $('#phoneNum').val();
       if(!user || !phoneNum){
-        $('.error').fadeIn();
-        $('#user, #phoneNum').on('keyup', function(){
-          $('.error').fadeOut();
-        });
+        processError();
       } else {
         const output = getCartInfo(foods, user, phoneNum);
         //console.log(output);
@@ -75,57 +80,17 @@ $( document ).ready(function(){
               $errorMsg = 'There was an error. Please try again.';
               throw 'Request was not a success';
             } else {
-              $('#go_cart').fadeout();
+              $('#go-cart').fadeout();
             }
           }
         })
       }
     });
   }
-    // /* POST the form */
-    // $(document).on('click','#go_cart',function() {
-    //   console.log(renderCartInfo);
-    //   //console.log(data);
-    //   //$('#orderForm').submit();
-    // });
+
 });
 
 function comma(num) {
   return num.toString().replace( /([0-9]+?)(?=(?:[0-9]{3})+$)/g , '$1,' );
 }
 
-function createTweetElement(tweet) {
-    const daysDiff = getDiff(tweet.created_at);
-    const $tweet = $('<article>');
-    const $header = $('<header>').appendTo($tweet);
-    const $img = $('<img>').attr('src', tweet.user.avatars.small).addClass('logo').appendTo($header);
-    const $h3 = $('<h3>').text(tweet.user.name).appendTo($header);
-    const $span = $('<span>').text(tweet.user.handle).appendTo($header);
-
-    const $p = $('<p>').text(tweet.content.text).appendTo($tweet);
-
-    const $footer = $('<footer>').appendTo($tweet);
-    const $footer_p = $('<p>').text(daysDiff).appendTo($footer);
-    const $footer_span = $('<span>').html('<i class="fa fa-flag"></i>\n<i class="fa fa-retweet"></i>\n<i class="fa fa-heart"></i>').appendTo($footer_p);
-
-    return $tweet;
-}
-///////////////////////////////
-    $("#food_list").html('');
-    let html = '<ul class="list-group mb-3">';
-    let key;
-    let total = 0;
-    for (key in foods){
-      html  += '<li class="list-group-item d-flex justify-content-between lh-condensed"><div><h6 class="my-0">'+foods[key].name+' <br /><small class="text-muted">Quantity:'+foods[key].quantity+'</small></div><span class="text-muted"> $'+comma( foods[key].sub_total )+'</span></li>';
-      total += foods[key].sub_total;
-    }
-    html += '<li class="list-group-item d-flex justify-content-between"><span>Total (USD)</span><strong>$'+comma( total )+'</strong></li>';
-    html += '</ul>';
-//////////////////////////////
-function renderCart(menu) {
-  const $ul = $('<ul class="list-group mb-3">');
-  const $li = $('<li class="list-group-item d-flex justify-content-between lh-condensed">').appendTo($ul);
-  const $div = $('<div>').appendTo($li);
-  const $h6 = $('<h6 class="my-0">').text(menu[key].name).appendTo($div);
-  const $br =
-}

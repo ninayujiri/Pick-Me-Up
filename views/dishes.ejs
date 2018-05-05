@@ -4,23 +4,37 @@
   <% include ./partials/_header %>
 
    <div class="container">
-     <div class="row float-right">
+     <div class="row float-right cart">
         <div class="col-sm">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-muted">Your cart</span>
          </h4>
 
-          <div id="cart_detail">
-            <div id="foods_list"></div>
+          <div id="cart-detail">
+            <div id="foods-list">
+              <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                  <div>
+                    <h6 class="my-0">No dish selected<br />
+                      <small class="text-muted">Quantity: 0</small>
+                  </div>
+                  <span class="text-muted">$0</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between"><span>Total (USD)</span><strong>$0</strong></li>
+              </ul>
+            </div>
 
-            <div id="go_cart">
-              <form id="orderForm" name="orderInfo" method="POST" action="/orders?_method=PUT class="card p-2">
-                <input type="text" id="user" class="form-control" placeholder="Name">
-                <input type="number" id="phoneNum" class="form-control" placeholder="Phone Number">
+            <div id="go-cart">
+              <form id="orderForm" name="orderInfo" method="POST" action="/orders?_method=PUT" class="card p-2">
+                <div class="form-group">
+                  <input type="text" id="user" class="form-control" placeholder="Name">
+                  <input type="number" id="phoneNum" class="form-control" placeholder="Phone Number">
+                </div>
                 <input type="hidden" id="data" name="data" value>
-                <input type="submit" id="go_cart_btn" class="btn btn-secondary" value="Order">
+                <input type="button" id="reset"class="btn btn-secondary" value="Reset">
+                <input type="submit" id="order" class="btn btn-secondary order" value="Order">
               </form>
-              <p class="error">Please enter your name and phone number.</p>
+              <span class="error">Please enter your name and phone number.</span>
             </div>
           </div>
 
