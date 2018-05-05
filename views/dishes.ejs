@@ -12,13 +12,15 @@
 
           <div id="cart_detail">
             <div id="foods_list"></div>
-              <input type="text" class="form-control" placeholder="Name">
-              <input type="text" class="form-control" placeholder="Phone Number">
+
             <div id="go_cart">
-              <a href="#" class="btn btn-warning btn-md">Place order<span class="glyphicon glyphicon-chevron-right"></span></a>
-              <form id="orderForm" name="orderInfo" method="POST" action="/orders" class="card p-2" style="display: none">
+              <form id="orderForm" name="orderInfo" method="POST" action="/orders?_method=PUT class="card p-2">
+                <input type="text" id="user" class="form-control" placeholder="Name">
+                <input type="number" id="phoneNum" class="form-control" placeholder="Phone Number">
                 <input type="hidden" id="data" name="data" value>
+                <input type="submit" id="go_cart_btn" class="btn btn-secondary" value="Order">
               </form>
+              <p class="error">Please enter your name and phone number.</p>
             </div>
           </div>
 
@@ -30,7 +32,7 @@
       <div class="card-columns display: inline-block">
 
         <% for(let dish of dishes) { %>
-          <% const hyphenId = (dish.dish_name).replace('\'', '').split(" ").join("-");%>
+          <% const hyphenId = (dish.dish_name).replace("'", "").split(" ").join("-");%>
 
           <div class="card">
             <img class="card-img-top" src="https://s3.us-east-2.amazonaws.com/pick-me-up-midterm/0<%= dish.id %>.jpg" alt="Card image cap">

@@ -2,6 +2,7 @@ $color_grey: #eee;
 $color_placeholder: #ccc;
 $color_black: #555;
 $color_white: #fff;
+$color_red: #d9532d;
 
 @mixin border-radius($p) {
     border-radius: $p;
@@ -171,7 +172,18 @@ main {
 
 
 
+
 /* shopping cart */
+.error {
+    color: $color_red;
+    display: none;
+}
+#go_cart {
+    .btn {
+        background-color: $color_red;
+        width: 100%;
+    }
+}
 // #cart_detail {
 //     display: none;
 // }
