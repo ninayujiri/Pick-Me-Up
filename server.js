@@ -25,7 +25,7 @@ const twilioClient      = new twilio(twilioAccountSid,twilioToken);
 const accountRoutes = require("./routes/accounts")(knex);
 const restoRoutes = require("./routes/restaurant")(knex);
 const smsRoutes = require("./routes/sms")(twilioClient);
-const ordersRoutes = require("./routes/orders");
+// const ordersRoutes = require("./routes/orders")();
 const dishesRoutes = require("./routes/dishes")(knex);
 
 
@@ -52,7 +52,7 @@ app.use(methodOverride("_method"));
 // app.use("/api/users", usersRoutes);
 app.use("/restaurants", restoRoutes);
 app.use("/dishes", dishesRoutes);
-app.use("/orders", ordersRoutes);
+// app.use("/orders", ordersRoutes);
 
 // Home page
 app.get("/", (req, res) => {
