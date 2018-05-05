@@ -10,7 +10,7 @@ module.exports = (knex, smsFunctions)=>{
     const phone_number = req.body.phone_number;
     const inputDishes = [];
 
-    knex
+
     //  adds the user to the accounts table. returns the user's id
     //  adding user can be factored out later
     knex('accounts')
@@ -30,7 +30,7 @@ module.exports = (knex, smsFunctions)=>{
       //  adds the order items to the order_items table. sends sms if the procedure is successful
       .then((order_id) => {
         res.body.dishes.forEach((element) => {
-          element.order_id = order_id;
+          element.order_id = order_id[0];
           inputDises.push(element);
         });
         knex('order_items')
@@ -38,7 +38,7 @@ module.exports = (knex, smsFunctions)=>{
         .then(() => {
           smsFunctions.smsRestaurant();
           smsFunctions.smsCustomer(false)
-        });
+        }).finally(() => knex.destroy());
       })
     })
 
