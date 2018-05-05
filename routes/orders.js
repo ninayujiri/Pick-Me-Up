@@ -29,7 +29,7 @@ module.exports = (knex, smsFunctions)=>{
 
       //  adds the order items to the order_items table. sends sms if the procedure is successful
       .then((order_id) => {
-        res.body.dishes.forEach((element) => {
+        req.body.dishes.forEach((element) => {
           element.order_id = order_id[0];
           inputDises.push(element);
         });
