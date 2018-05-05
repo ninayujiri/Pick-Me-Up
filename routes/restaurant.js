@@ -4,7 +4,7 @@ const express = require('express');
 const router  = express.Router();
 
 
-module.exports = (knex) => {
+module.exports = (knex, smsFunctions) => {
 
 //  Retrieves restaurant data when the page loads for the first time
   router.get("/", (req,res) => {
@@ -100,6 +100,14 @@ module.exports = (knex) => {
       res.status(200).json(outputData);
     });
   });
+
+
+  router.put("/:restaurantID/orders/ready", (req, res) => {
+    const phone_number = req.body.phone_number;
+    smsFunctions.smsCustomer(true, phone_number);
+    res.status(200).send("OK");
+  })
+
 
   return router;
 }

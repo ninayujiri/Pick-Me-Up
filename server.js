@@ -24,8 +24,7 @@ const smsFunctions     = require("./twilioFunctions/twilioFunctions.js")(twilioC
 
 // Seperated Routes for each Resource
 const accountRoutes = require("./routes/accounts")(knex);
-const restoRoutes   = require("./routes/restaurant")(knex);
-// const smsRoutes = require("./routes/sms")(twilioClient);
+const restoRoutes   = require("./routes/restaurant")(knex, smsFunctions);
 const ordersRoutes  = require("./routes/orders")(knex, smsFunctions);
 const dishesRoutes  = require("./routes/dishes")(knex);
 

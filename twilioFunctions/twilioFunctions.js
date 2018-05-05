@@ -13,18 +13,18 @@ module.exports = (twilioClient) => {
                       .then((message) => console.log(message.sid));
                     },
 
-      smsCustomer: (isReady) => {
+      smsCustomer: (isReady, clientPhone) => {
                       if(isReady){
                         twilioClient.messages.create({
                           body: "Your food is ready for pickup",
-                          to:twilioInfo.personal_phone,
+                          to:clientPhone,
                           from: twilioInfo.twilioNumber
                           })
                           .then((message) => console.log(message.sid));
                       } else {
                         twilioClient.messages.create({
                           body: "Your order is received by the restaurant.",
-                          to:twilioInfo.personal_phone,
+                          to:clientPhone,
                           from: twilioInfo.twilioNumber
                           })
                           .then((message) => console.log(message.sid));
