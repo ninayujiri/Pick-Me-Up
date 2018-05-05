@@ -6,7 +6,6 @@ $( document ).ready(function(){
    const data      = $(this).data();          // defined data in button
    const quantity  = $(data.id).val();        // selected quqntity
    const sub_total = Math.round(data.price * quantity);  // price x quantity
-
    foods[data.number] = new Object();  // reset same menu
    foods[data.number] = {
       'name':data.name,
@@ -15,20 +14,24 @@ $( document ).ready(function(){
       'sub_total':sub_total,
       'id':data.number
    };
+
    cart_open();
+
   });
 
   function getCartInfo(menu, user, phone){
     let output = {};
     let orderInfo = [];
     for (let key in menu) {
-      orderInfo.push({'dish_id': menu[key].id,'quantity': menu[key].quantity}) ;
+      orderInfo.push({'dish_id': parseInt(menu[key].id),'quantity': parseInt(menu[key].quantity)});
     }
+    //console.log(orderInfo);
     output = {
       'userName': user,
       'phone_number': phone,
       'dishes': orderInfo
     }
+    console.log(output);
     return output;
   }
 
@@ -63,7 +66,6 @@ $( document ).ready(function(){
       } else {
         const output = getCartInfo(foods, user, phoneNum);
         //console.log(output);
-
         $.ajax({
           url: '/orders',
           method: 'PUT',
@@ -79,7 +81,6 @@ $( document ).ready(function(){
         })
       }
     });
-
   }
     // /* POST the form */
     // $(document).on('click','#go_cart',function() {
@@ -93,5 +94,38 @@ function comma(num) {
   return num.toString().replace( /([0-9]+?)(?=(?:[0-9]{3})+$)/g , '$1,' );
 }
 
+function createTweetElement(tweet) {
+    const daysDiff = getDiff(tweet.created_at);
+    const $tweet = $('<article>');
+    const $header = $('<header>').appendTo($tweet);
+    const $img = $('<img>').attr('src', tweet.user.avatars.small).addClass('logo').appendTo($header);
+    const $h3 = $('<h3>').text(tweet.user.name).appendTo($header);
+    const $span = $('<span>').text(tweet.user.handle).appendTo($header);
 
+    const $p = $('<p>').text(tweet.content.text).appendTo($tweet);
 
+    const $footer = $('<footer>').appendTo($tweet);
+    const $footer_p = $('<p>').text(daysDiff).appendTo($footer);
+    const $footer_span = $('<span>').html('<i class="fa fa-flag"></i>\n<i class="fa fa-retweet"></i>\n<i class="fa fa-heart"></i>').appendTo($footer_p);
+
+    return $tweet;
+}
+///////////////////////////////
+    $("#food_list").html('');
+    let html = '<ul class="list-group mb-3">';
+    let key;
+    let total = 0;
+    for (key in foods){
+      html  += '<li class="list-group-item d-flex justify-content-between lh-condensed"><div><h6 class="my-0">'+foods[key].name+' <br /><small class="text-muted">Quantity:'+foods[key].quantity+'</small></div><span class="text-muted"> $'+comma( foods[key].sub_total )+'</span></li>';
+      total += foods[key].sub_total;
+    }
+    html += '<li class="list-group-item d-flex justify-content-between"><span>Total (USD)</span><strong>$'+comma( total )+'</strong></li>';
+    html += '</ul>';
+//////////////////////////////
+function renderCart(menu) {
+  const $ul = $('<ul class="list-group mb-3">');
+  const $li = $('<li class="list-group-item d-flex justify-content-between lh-condensed">').appendTo($ul);
+  const $div = $('<div>').appendTo($li);
+  const $h6 = $('<h6 class="my-0">').text(menu[key].name).appendTo($div);
+  const $br =
+}
