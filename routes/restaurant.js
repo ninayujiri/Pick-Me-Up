@@ -71,7 +71,7 @@ module.exports = (knex) => {
 //  Renders the orders table for the restaurant owner
   router.get("/:restaurantID/orders/fetch", (req,res) => {
     const restaurantID = req.params.restaurantID;
-    const outputData;
+    const outputData = {};
 
     knex.select('orders.id', 'order_items.quantity', 'dishes.dish_name', 'orders.created_at', 'accounts.name', 'accounts.phone_number', 'orders.payment_method')
     .from('order_items')
@@ -79,9 +79,25 @@ module.exports = (knex) => {
     .join('accounts', 'orders.account_id','=', 'accounts.id')
     .join('dishes', 'order_items.dish_id','=','dishes.id')
     .where('dishes.account_id', restaurantID)
-    .then((result)=>{
-      result.forEach((index))
-      res.status(200).json(result);
+    .then((result) => {
+      let outputData = {};
+
+      result.forEach((element) => {
+        if(!outputData[element.name]){
+          outputData[element.name] = {};
+          outputData[element.name].dishes = [];
+          outputData[element.name].dishes.push({dish_name:element.dish_name, quantity: element.quantity});
+          outputData[element.name].created_at = element.created_at;
+          outputData[element.name].phone_number = element.phone_number;
+
+        } else {
+          outputData[element.name].dishes.push({dish_name:element.dish_name, quantity: element.quantity});
+          outputData[element.name].created_at = element.created_at;
+          outputData[element.name].phone_number = element.phone_number;
+        }
+      });
+
+      res.status(200).json(outputData);
     });
   });
 
