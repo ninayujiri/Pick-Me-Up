@@ -12,6 +12,9 @@ $darkGray: #adadad;
 
 body {
   background-color: $white;
+  margin: 0;
+  padding: 0;
+  height: 100%;
 
   nav {
     padding-top: 2em;
@@ -32,9 +35,3 @@ body {
     color: #244751;
   }
 }
-
-// .footer {
-//   position: absolute;
-//   bottom: 0;
-//   width: 100%;
-// }

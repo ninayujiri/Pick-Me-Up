@@ -142,8 +142,10 @@ module.exports = (knex, smsFunctions) => {
 
   router.put("/:restaurantID/orders/ready", (req, res) => {
     const phone_number = req.body.phone_number;
+    console.log("PHONE NUMBER", req.body);
     smsFunctions.smsCustomer(true, phone_number);
-    res.status(200).send("OK");
+
+    res.status(200).json(phone_number);
   })
 
 
