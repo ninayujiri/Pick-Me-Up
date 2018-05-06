@@ -17,20 +17,7 @@ function renderRows(orderData) {
   $.each(orderData, function(index, value) {
     $("tbody").append(generateTableRow(value))
   })
-}
-
-//Fetch the orders from the DB
-// $.get("/restaurants/1/orders/fetch", function(res) {
-//   orderData = res;
-// })
-// .done(function(){
-//   $(function(){
-//     renderRows(orderData);
-//   });
-// })
-// .fail(function(err){
-//   console.log(err);
-// })
+};
 
 
 //Load the orders from database
@@ -46,27 +33,7 @@ function loadOrders() {
   .fail(function(err){
     console.log(err);
   })
-}
-
-
-// function reloadPage() {
-//   location.reload();
-// }
-
-// $(document).ready(function(){
-//   loadOrders();
-
-//   $('div').on('click', 'button', function (event) {
-
-//     $(this).parent().remove();
-//   });
-// });
-
-
-// setInterval(function(){
-//  location.reload();
-// }, 10000);
-
+};
 
 
 $(document).ready(function(){
@@ -99,20 +66,22 @@ $(document).ready(function(){
       order_ids.push(Number($(value).text()));
     })
 
+    setInterval(function(){
+
     $.ajax({
         method: 'PUT',
         url: 'http://localhost:8080/restaurants/1/orders/refresh',
-        data: { "order_id": order_ids}
+        data: { "order_id": order_ids }
       })
       .done(function (data) {
+        console.log('data', data);
+        renderRows(data);
         console.log('sent');
     });
+
+    }, 300000);
+
 
   });
 
 });
-
-
-
-
-

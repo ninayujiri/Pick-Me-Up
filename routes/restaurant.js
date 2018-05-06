@@ -3,7 +3,6 @@
 const express = require('express');
 const router  = express.Router();
 
-
 module.exports = (knex, smsFunctions) => {
 
 //  Retrieves restaurant data when the page loads for the first time
@@ -102,7 +101,6 @@ module.exports = (knex, smsFunctions) => {
   });
 
 
-
  // Renders the order details table
   router.get("/:restaurantID/orders/:orderID/", (req,res) => {
     const orderID = req.params.orderID;
@@ -129,9 +127,9 @@ module.exports = (knex, smsFunctions) => {
       });
 
       res.render('orders_id', { details: result });
-      // res.status(200).json(detailsData);
     });
   });
+
 
   //  Sends sms to the customer when order is ready, updates the database
   router.put("/:restaurantID/orders/ready", (req, res) => {
@@ -152,6 +150,7 @@ module.exports = (knex, smsFunctions) => {
     });
   });
 
+
   router.put("/:restaurantID/orders/refresh", (req,res) => {
       const orderIDs = req.body.order_id;
       const restaurantID = req.params.restaurantID;
@@ -166,10 +165,9 @@ module.exports = (knex, smsFunctions) => {
     .where({'dishes.account_id': restaurantID, 'orders.isComplete': false})
     .whereNotIn('orders.id', orderIDs)
     .then((result) => {
-      // console.log(result);
 
       result.forEach((element) => {
-        console.log(element);
+        // console.log(element);
         if(!outputData[element.id]){
           outputData[element.id] = {};
           outputData[element.id].name = element.name;
@@ -183,7 +181,6 @@ module.exports = (knex, smsFunctions) => {
           outputData[element.id].created_at = element.created_at;
         }
       });
-       // console.log(outputData);
       res.status(200).json(outputData);
     });
   })
