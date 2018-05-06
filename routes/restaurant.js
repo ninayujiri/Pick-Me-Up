@@ -150,7 +150,7 @@ module.exports = (knex, smsFunctions) => {
   });
 
   router.get("/:restaurantID/orders/refresh", (req,res) => {
-    const orderIDs = req.body.orderIDs;
+    const orderIDs = req.body.order_ids;
     const restaurantID = req.params.restaurantID;
     const outputData = {};
 
@@ -181,7 +181,6 @@ module.exports = (knex, smsFunctions) => {
       res.status(200).json(outputData);
     });
   })
-
 
 
   return router;
