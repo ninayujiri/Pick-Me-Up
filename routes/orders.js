@@ -42,7 +42,8 @@ module.exports = (knex, smsFunctions)=>{
           .then(() => {
             smsFunctions.smsRestaurant();
             smsFunctions.smsCustomer(false, phone_number)
-          }).finally(()=> knex.destroy());
+            res.send();
+          })
         })
       })
 
@@ -67,7 +68,7 @@ module.exports = (knex, smsFunctions)=>{
           smsFunctions.smsRestaurant();
           smsFunctions.smsCustomer(false, phone_number);
           res.send()
-        }).finally(()=> knex.destroy());
+        })
        })
     }
 

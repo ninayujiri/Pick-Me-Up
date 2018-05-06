@@ -51,7 +51,7 @@ $( document ).ready(function(){
           if (status !== 'success') {
             $errorMsg = 'There was an error. Please try again.';
             throw 'Request was not a success';
-          } else {
+           } else {
             window.location.href = '/confirmation';
           }
         }
