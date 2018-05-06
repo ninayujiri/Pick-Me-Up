@@ -21,7 +21,7 @@ const twilioAccountSid = twilioInfo.twilioID;
 const twilioToken      = twilioInfo.twilioToken;
 const twilioClient     = new twilio(twilioAccountSid,twilioToken);
 const smsFunctions     = require("./twilioFunctions/twilioFunctions.js")(twilioClient);
-console.log(smsFunctions)
+
 
 // Seperated Routes for each Resource
 const accountRoutes = require("./routes/accounts")(knex);

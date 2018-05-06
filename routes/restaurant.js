@@ -80,7 +80,7 @@ module.exports = (knex, smsFunctions) => {
     .join('dishes', 'order_items.dish_id','=','dishes.id')
     .where({'dishes.account_id': restaurantID, 'orders.isComplete': false})
     .then((result) => {
-      let outputData = {};
+
 
       result.forEach((element) => {
         if(!outputData[element.id]){
@@ -112,7 +112,7 @@ module.exports = (knex, smsFunctions) => {
     .join('dishes', 'order_items.dish_id','=','dishes.id')
     .where({'order_items.order_id': orderID, 'orders.isComplete': false})
     .then((result) => {
-      let detailsData = {};
+
 
       result.forEach((element) => {
         if(!detailsData[element.name]){
@@ -150,6 +150,36 @@ module.exports = (knex, smsFunctions) => {
   });
 
   router.get("/:restaurantID/orders/refresh", (req,res) => {
+    const orderIDs = req.body.orderIDs;
+    const restaurantID = req.params.restaurantID;
+    const outputData = {};
+
+    knex.select('orders.id', 'order_items.quantity', 'dishes.dish_name', 'orders.created_at', 'accounts.name', 'accounts.phone_number', 'orders.payment_method')
+    .from('order_items')
+    .join('orders', 'order_items.order_id','=','orders.id')
+    .join('accounts', 'orders.account_id','=', 'accounts.id')
+    .join('dishes', 'order_items.dish_id','=','dishes.id')
+    .where({'dishes.account_id': restaurantID, 'orders.isComplete': false})
+    .whereNotIn('orders.id', orderIDs)
+    .then((result) => {
+
+
+      result.forEach((element) => {
+        if(!outputData[element.id]){
+          outputData[element.id] = {};
+          outputData[element.id].name = element.name;
+          outputData[element.id].id = element.id;
+          outputData[element.id].phone_number = element.phone_number;
+          outputData[element.id].created_at = element.created_at;
+        } else {
+          outputData[element.id].name = element.name;
+          outputData[element.id].id = element.id;
+          outputData[element.id].phone_number = element.phone_number;
+          outputData[element.id].created_at = element.created_at;
+        }
+      });
+      res.status(200).json(outputData);
+    });
   })
 
 
