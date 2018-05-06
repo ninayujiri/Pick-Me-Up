@@ -21,13 +21,14 @@ const twilioAccountSid = twilioInfo.twilioID;
 const twilioToken      = twilioInfo.twilioToken;
 const twilioClient     = new twilio(twilioAccountSid,twilioToken);
 const smsFunctions     = require("./twilioFunctions/twilioFunctions.js")(twilioClient);
+console.log(smsFunctions)
 
 // Seperated Routes for each Resource
 const accountRoutes = require("./routes/accounts")(knex);
 const restoRoutes   = require("./routes/restaurant")(knex, smsFunctions);
 const ordersRoutes  = require("./routes/orders")(knex, smsFunctions);
 const dishesRoutes  = require("./routes/dishes")(knex);
-
+const smsRoutes        = require("./routes/sms.js")(twilio, smsFunctions);
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -52,6 +53,7 @@ app.use(methodOverride("_method"));
 app.use("/restaurants", restoRoutes);
 app.use("/dishes", dishesRoutes);
 app.use("/orders", ordersRoutes);
+app.use("/sms", smsRoutes);
 
 // Home page
 app.get("/", (req, res) => {
