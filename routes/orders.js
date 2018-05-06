@@ -11,24 +11,24 @@ module.exports = (knex, smsFunctions)=>{
     const inputDishes = [];
 
 
-  knex('accounts').where("phone_number", phone_number).select('phone_number')
+  knex('accounts').where("phone_number", phone_number).select('phone_number', 'id')
   .then((result) =>{
-
      // Checks if user exists
     if(!result.length){
       //  Executes if user doesn't exist
-
       knex('accounts')
       .insert({
         name: userName,
-        phone_number: phone_number
+        phone_number: phone_number,
+        isRestaurant: false
       }).returning('id')
        // adds the order to the orders table. returns the order id
       .then((account_id) => {
         knex('orders')
         .insert({
           created_at: new Date(),
-          account_id: account_id[0]
+          account_id: account_id[0],
+          isComplete: false
         }).returning('id')
           //  adds the order items to the order_items table. sends sms if the procedure is successful
         .then((order_id) => {
@@ -52,16 +52,15 @@ module.exports = (knex, smsFunctions)=>{
       knex('orders')
       .insert({
         created_at: new Date(),
-        account_id: result[0].id
+        account_id: result[0].id,
+        isComplete: false
       }).returning('id')
       //  adds the order items to the order_items table. sends sms if the procedure is successful
       .then((order_id) => {
         req.body.dishes.forEach((element) => {
-          // console.log(element);
           element.order_id = order_id[0];
           inputDishes.push(element);
         });
-        // console.log(inputDishes);
         knex('order_items')
         .insert(inputDishes)
         .then(() => {
@@ -71,7 +70,6 @@ module.exports = (knex, smsFunctions)=>{
         })
        })
     }
-
   })
 })
 return router;

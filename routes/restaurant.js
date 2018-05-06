@@ -96,7 +96,6 @@ module.exports = (knex, smsFunctions) => {
           outputData[element.id].created_at = element.created_at;
         }
       });
-
       res.status(200).json(outputData);
     });
   });
@@ -142,9 +141,22 @@ module.exports = (knex, smsFunctions) => {
 
   router.put("/:restaurantID/orders/ready", (req, res) => {
     const phone_number = req.body.phone_number;
-    smsFunctions.smsCustomer(true, phone_number);
-    res.status(200).send("OK");
-  })
+    const orderID = req.body.order_id
+
+    knex('accounts').where('phone_number', phone_number).select('accounts.id')
+    .then((result) => {
+      console.log(result[0].id);
+      knex('orders').where({'orders.account_id': result[0].id, 'orders.id': orderID})
+      .update({
+        isComplete: true,
+        updated_at: new Date()
+      })
+      .then(()=>{
+        smsFunctions.smsCustomer(true, phone_number);
+        res.status(200).send("OK");
+      });
+    });
+  });
 
 
   return router;
