@@ -98,7 +98,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 main {
-    padding-top: 5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     table {
         th.btn-status, td.btn-status {
             border:none;
@@ -157,7 +158,8 @@ main {
     }
     // orders
     h2 {
-        font-size: 1.1rem;
+        font-size: 1.7rem;
+        margin: 1em 0;
     }
     table {
         margin-bottom: 2rem !important;

@@ -1,35 +1,27 @@
-let orderData;
-
-
-function generateTableRow(orderObj){
-  const $row          = $("<tr>").addClass("table-success");
-  const $orderNumber  = $("<td>").text(orderObj.id);
+// Generate Orders Table
+function generateTableRow(orderObj) {
+  const $row          = $("<tr>").addClass("table-white");
+  const $orderNumber  = $("<td>").append($("<a>").text(orderObj.id).attr("href",`http://localhost:8080/restaurants/1/orders/${orderObj.id}`));
   const $customerName = $("<td>").text(orderObj.name);
   const $phoneNumber  = $("<td>").text(orderObj.phone_number);
-  const $timePlaced   = $("<td>").text(moment(orderObj.created_at).format('MMMM Do YYYY, h:mm:ss a'));
-  const $dishName     = $("<td>").text(orderObj.dish_name);
-  const $quantity     = $("<td>").text(orderObj.quantity);
-  const $status       = $("<td>").append($("<span>").addClass("status").text("Pending"));
-  const $button       = $("<button>").css("height", "60px");
+  const $timePlaced   = $("<td>").text(moment(orderObj.created_at).format('MM/DD, h:mm A'));
+  const $button       = $("<button>").addClass("btn btn-secondary centered").text("Send SMS");
 
-  $row.append($orderNumber, $customerName, $phoneNumber, $timePlaced, $dishName, $quantity, $status);
+
+  $row.append($orderNumber, $customerName, $phoneNumber, $timePlaced, $button);
   return $row;
 };
 
-function checkIsClient(orderObj){
 
-}
-
-function renderRows(orderData){
-  $.each(orderData, function(index, value){
+function renderRows(orderData) {
+  $.each(orderData, function(index, value) {
     $("tbody").append(generateTableRow(value))
   })
 }
 
 
-$.get("/restaurants/1/orders/fetch", function(res){
+$.get("/restaurants/1/orders/fetch", function(res) {
   orderData = res;
-  console.log(orderData);
 })
 .done(function(){
   $(function(){
@@ -39,4 +31,21 @@ $.get("/restaurants/1/orders/fetch", function(res){
 .fail(function(err){
   console.log(err);
 })
+
+
+$(document).ready(function(){
+  $('tbody').on('click', 'button', function (event) {
+    let phone_number = $(this).parent().find(".phone_number").text();
+    event.preventDefault();
+      $.ajax({
+          method: 'PUT',
+          url: '/:restaurantID/orders/ready',
+          data: {"phone_number": phone_number}
+        }).done(function () {
+          console.log('done');
+      });
+    $(this).parent().remove();
+  });
+});
+
 

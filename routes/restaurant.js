@@ -83,17 +83,17 @@ module.exports = (knex, smsFunctions) => {
       let outputData = {};
 
       result.forEach((element) => {
-        if(!outputData[element.name]){
-          outputData[element.name] = {};
-          outputData[element.name].dishes = [];
-          outputData[element.name].dishes.push({dish_name:element.dish_name, quantity: element.quantity});
-          outputData[element.name].created_at = element.created_at;
-          outputData[element.name].phone_number = element.phone_number;
-
+        if(!outputData[element.id]){
+          outputData[element.id] = {};
+          outputData[element.id].name = element.name;
+          outputData[element.id].id = element.id;
+          outputData[element.id].phone_number = element.phone_number;
+          outputData[element.id].created_at = element.created_at;
         } else {
-          outputData[element.name].dishes.push({dish_name:element.dish_name, quantity: element.quantity});
-          outputData[element.name].created_at = element.created_at;
-          outputData[element.name].phone_number = element.phone_number;
+          outputData[element.id].name = element.name;
+          outputData[element.id].id = element.id;
+          outputData[element.id].phone_number = element.phone_number;
+          outputData[element.id].created_at = element.created_at;
         }
       });
 
@@ -101,6 +101,44 @@ module.exports = (knex, smsFunctions) => {
     });
   });
 
+
+  // Order Details
+
+  // router.get("/:restaurantID/orders/:orderID", (req,res) => {
+  //   res.render("../views/orders_id.ejs");
+  //   // res.render('orders_id', { data: detailsData });
+  // });
+
+
+ // Renders the order details table
+  router.get("/:restaurantID/orders/:orderID/", (req,res) => {
+    const orderID = req.params.orderID;
+    const detailsData = {};
+
+    knex.select('orders.id', 'order_items.quantity', 'dishes.dish_name', 'orders.created_at', 'accounts.name', 'accounts.phone_number', 'orders.payment_method')
+    .from('order_items')
+    .join('orders', 'order_items.order_id','=','orders.id')
+    .join('accounts', 'orders.account_id','=', 'accounts.id')
+    .join('dishes', 'order_items.dish_id','=','dishes.id')
+    .where('order_items.order_id', orderID)
+    .then((result) => {
+      let detailsData = {};
+
+      result.forEach((element) => {
+        if(!detailsData[element.name]){
+          detailsData[element.name] = {};
+          detailsData[element.name].dishes = [];
+          detailsData[element.name].dishes.push({dish_name:element.dish_name, quantity: element.quantity});
+
+        } else {
+          detailsData[element.name].dishes.push({dish_name:element.dish_name, quantity: element.quantity});
+        }
+      });
+
+      res.render('orders_id', { details: result });
+      // res.status(200).json(detailsData);
+    });
+  });
 
   router.put("/:restaurantID/orders/ready", (req, res) => {
     const phone_number = req.body.phone_number;

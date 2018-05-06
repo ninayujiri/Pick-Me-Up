@@ -66,13 +66,11 @@ app.get("/dishes_new", (req, res) => {
   res.render("dishes_new");
 });
 
-// Orders page
 
-
-// Menu page
-// app.get("/dishes", (req, res) => {
-//   res.render("dishes");
-// });
+// Confirmation Page
+app.get("/confirmation", (req, res) => {
+  res.render("confirmation");
+});
 
 
 app.listen(PORT, () => {

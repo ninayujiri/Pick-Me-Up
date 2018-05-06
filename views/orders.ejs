@@ -2,73 +2,34 @@
 <html lang="en">
 
     <% include ./partials/_header %>
-  <script type="text/javascript" src="/scripts/restaurantOrdersTable.js"></script>
-  <script type="text/javascript" src="/vendor/moment.js"></script>
 
+    <script type="text/javascript" src="/scripts/restaurantOrdersTable.js"></script>
+    <script type="text/javascript" src="/vendor/moment.js"></script>
 
-
-
-    <main>
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <!-- Order page, Table -->
-            <h2>Orders</h2>
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>order #</th>
-                    <th>customer name</th>
-                    <th>phone</th>
-                    <th>time placed</th>
-                    <th>dishes</th>
-                    <th>quantities</th>
-                    <th>status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!--tr class="table-success">
-                    <td>1</td>
-                    <td>Jane Doe</td>
-                    <td>514-111-1111</td>
-                    <td>9:00am</td>
-                    <td>fries</td>
-                    <td>2</td>
-                    <td><span class="status">complete</span></td>
-                  </tr>
-                  <tr class="completed">
-                    <td>1</td>
-                    <td>Jane Doe</td>
-                    <td>514-111-1111</td>
-                    <td>9:00am</td>
-                    <td>burger</td>
-                    <td>2</td>
-                    <td><span class="status">complete</span></td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Anna Apple</td>
-                    <td>514-222-2222</td>
-                    <td>11:00am</td>
-                    <td>fries</td>
-                    <td>1</td>
-                    <td><span class="status">ready</span></td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>John Smith</td>
-                    <td>123-456-7890</td>
-                    <td>13:00pm</td>
-                    <td>burger</td>
-                    <td>1</td>
-                    <td><span class="status">pending</span></td>
-                  </tr> -->
+      <main>
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <!-- Order page, Table -->
+              <h2>Orders</h2>
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>order #</th>
+                      <th>customer name</th>
+                      <th>phone</th>
+                      <th>time placed</th>
+                      <th>complete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+          <!-- to fill from DB -->
                 </tbody>
-              </table>
+                </table>
+            </div>
           </div>
         </div>
-      </div><!-- /.container -->
-    </main>
+      </main>
 
     <% include ./partials/_footer %>
   </body>

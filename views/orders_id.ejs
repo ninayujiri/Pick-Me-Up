@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <% include ./partials/_header %>
+
+  <script type="text/javascript" src="/scripts/restaurantOrdersDetails.js"></script>
+  <script type="text/javascript" src="/vendor/moment.js"></script>
+
+    <main>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <!-- Order page, Table -->
+
+            <a href="http://localhost:8080/restaurants/1/orders/"><button class="btn btn-outline-dark btn-sm">< Back</button></a>
+            <br>
+
+            <h2><%= details[0].name %>'s Order Details</h2>
+
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>dishes</th>
+                    <th>quantity</th>
+                    <th>complete</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                <% for(let detail in details) { %>
+                  <tr>
+                    <td><%= details[detail].dish_name %></td>
+                    <td><%= details[detail].quantity %></td>
+                    <td>
+                        <input type="checkbox" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </td>
+                  </tr>
+                <% } %>
+
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div><!-- /.container -->
+    </main>
+
+    <% include ./partials/_footer %>
+  </body>
+</html>
