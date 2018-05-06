@@ -8,8 +8,10 @@ function generateTableRow(orderObj){
   const $customerName = $("<td>").text(orderObj.name);
   const $phoneNumber  = $("<td>").text(orderObj.phone_number);
   const $timePlaced   = $("<td>").text(moment(orderObj.created_at).format('MM/DD, h:mm a'));
+  const $button       = $("<button>").addClass("btn btn-secondary centered").text("Send SMS");
 
-  $row.append($orderNumber, $customerName, $phoneNumber, $timePlaced);
+
+  $row.append($orderNumber, $customerName, $phoneNumber, $timePlaced, $button);
   return $row;
 };
 
@@ -28,12 +30,29 @@ $.get("/restaurants/1/orders/fetch", function(res){
 .done(function(){
   $(function(){
     renderRows(orderData);
-
   });
 })
 .fail(function(err){
   console.log(err);
 })
+
+
+
+$(document).ready(function(){
+  $('tbody').on('click', 'button', function (event) {
+    let id = $(this).parent().find(".orderId").text();
+    // event.preventDefault();
+    //   $.ajax({
+    //       method: 'PUT',
+    //       url: '/orders/' + phone_number,
+    //       data: {"phone_number": phone_number}
+    //     }).done(function () {
+    //       console.log('done');
+    //   });
+    $(this).parent().remove();
+  });
+});
+
 
 
 

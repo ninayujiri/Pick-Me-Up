@@ -65,8 +65,10 @@ app.get("/dishes_new", (req, res) => {
   res.render("dishes_new");
 });
 
-// Orders page
-
+// Confirmation Page
+app.get("/confirmation", (req, res) => {
+  res.render("confirmation");
+});
 
 // Menu page
 // app.get("/dishes", (req, res) => {

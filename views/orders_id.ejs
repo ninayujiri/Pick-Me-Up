@@ -12,7 +12,7 @@
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <!-- Order page, Table -->
 
-            <a href="http://localhost:8080/restaurants/1/orders/"><button class="btn btn-outline-dark btn-sm">Back to Orders</button></a>
+            <a href="http://localhost:8080/restaurants/1/orders/"><button class="btn btn-outline-dark btn-sm">< Back</button></a>
             <br>
 
             <h2><%= details[0].name %>'s Order Details</h2>
@@ -31,7 +31,10 @@
                   <tr>
                     <td><%= details[detail].dish_name %></td>
                     <td><%= details[detail].quantity %></td>
-                    <td><button class="btn btn-secondary">Send SMS</button></td>
+                    <td>
+                        <input type="checkbox" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </td>
                   </tr>
                 <% } %>
 
