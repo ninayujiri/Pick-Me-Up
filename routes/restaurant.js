@@ -78,7 +78,7 @@ module.exports = (knex, smsFunctions) => {
     .join('orders', 'order_items.order_id','=','orders.id')
     .join('accounts', 'orders.account_id','=', 'accounts.id')
     .join('dishes', 'order_items.dish_id','=','dishes.id')
-    .where('dishes.account_id', restaurantID)
+    .where({'dishes.account_id': restaurantID, 'orders.isComplete': false})
     .then((result) => {
       let outputData = {};
 
@@ -100,15 +100,6 @@ module.exports = (knex, smsFunctions) => {
     });
   });
 
-
-  // Order Details
-
-  // router.get("/:restaurantID/orders/:orderID", (req,res) => {
-  //   res.render("../views/orders_id.ejs");
-  //   // res.render('orders_id', { data: detailsData });
-  // });
-
-
  // Renders the order details table
   router.get("/:restaurantID/orders/:orderID/", (req,res) => {
     const orderID = req.params.orderID;
@@ -119,7 +110,7 @@ module.exports = (knex, smsFunctions) => {
     .join('orders', 'order_items.order_id','=','orders.id')
     .join('accounts', 'orders.account_id','=', 'accounts.id')
     .join('dishes', 'order_items.dish_id','=','dishes.id')
-    .where('order_items.order_id', orderID)
+    .where({'order_items.order_id': orderID, 'orders.isComplete': false})
     .then((result) => {
       let detailsData = {};
 
@@ -139,13 +130,13 @@ module.exports = (knex, smsFunctions) => {
     });
   });
 
+  //  Sends sms to the customer when order is ready, updates the database
   router.put("/:restaurantID/orders/ready", (req, res) => {
     const phone_number = req.body.phone_number;
     const orderID = req.body.order_id
 
     knex('accounts').where('phone_number', phone_number).select('accounts.id')
     .then((result) => {
-      console.log(result[0].id);
       knex('orders').where({'orders.account_id': result[0].id, 'orders.id': orderID})
       .update({
         isComplete: true,
@@ -157,6 +148,10 @@ module.exports = (knex, smsFunctions) => {
       });
     });
   });
+
+  router.get("/:restaurantID/orders/refresh", (req,res) => {
+  })
+
 
 
   return router;
