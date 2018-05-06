@@ -43,7 +43,7 @@ $( document ).ready(function(){
       } else {
         const output = getCartInfo(foods, user, phoneNum);
         $.ajax({
-          //url: '/orders',
+          url: '/orders',
           method: 'PUT',
           data: output,
           success: function(data, status, jqXHR){
@@ -96,16 +96,18 @@ function getCartDefault() {
 function getCartInfo(menu, user, phone){
   let output = {};
   let orderInfo = [];
+  console.log(menu);
   for (let key in menu) {
     orderInfo.push({'dish_id': parseInt(menu[key].id),'quantity': parseInt(menu[key].quantity)});
+    // console.log(orderInfo);
   }
-  console.log(orderInfo);
+  // console.log(orderInfo);
   output = {
     'userName': user,
     'phone_number': phone,
     'dishes': orderInfo
   }
-  console.log(output);
+  // console.log(output);
   return output;
 }
 

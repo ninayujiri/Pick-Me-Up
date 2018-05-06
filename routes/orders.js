@@ -10,11 +10,14 @@ module.exports = (knex, smsFunctions)=>{
     const phone_number = req.body.phone_number;
     const inputDishes = [];
 
+
   knex('accounts').where("phone_number", phone_number).select('phone_number')
   .then((result) =>{
-    //  Checks if user exists
-    if(!result){
+
+     // Checks if user exists
+    if(!result.length){
       //  Executes if user doesn't exist
+
       knex('accounts')
       .insert({
         name: userName,
@@ -43,7 +46,7 @@ module.exports = (knex, smsFunctions)=>{
         })
       })
 
-    } else {
+     } else {
       //  Executes if user exists
       knex('orders')
       .insert({
@@ -65,8 +68,9 @@ module.exports = (knex, smsFunctions)=>{
           smsFunctions.smsCustomer(false, phone_number);
           res.send()
         }).finally(()=> knex.destroy());
-      })
+       })
     }
+
   })
 })
 return router;
