@@ -38,7 +38,6 @@ $( document ).ready(function(){
     e.preventDefault();
     const user = $('#user').val();
     const phoneNum = $('#phoneNum').val();
-    console.log('FOODS',foods);
     if(!foods || !user || !phoneNum){
       processError();
     } else {
