@@ -104,6 +104,7 @@ module.exports = (knex, smsFunctions) => {
 
   router.put("/:restaurantID/orders/ready", (req, res) => {
     const phone_number = req.body.phone_number;
+    knex('accounts').where('phone_number', phone_number).select('accounts.id')
     smsFunctions.smsCustomer(true, phone_number);
     res.status(200).send("OK");
   })
