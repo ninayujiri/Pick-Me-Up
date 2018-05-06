@@ -45,6 +45,7 @@ $( document ).ready(function(){
       $.ajax({
         url: '/orders',
         method: 'PUT',
+        cache: false,
         data: output,
         success: function(data, status, jqXHR){
           if (status !== 'success') {
