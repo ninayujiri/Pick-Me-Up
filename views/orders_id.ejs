@@ -11,7 +11,12 @@
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <!-- Order page, Table -->
-            <h2>Order Details</h2>
+
+            <a href="http://localhost:8080/restaurants/1/orders/"><button class="btn btn-outline-dark btn-sm">Back to Orders</button></a>
+            <br>
+
+            <h2><%= details[0].name %>'s Order Details</h2>
+
               <table class="table table-bordered">
                 <thead>
                   <tr>
@@ -21,7 +26,15 @@
                   </tr>
                 </thead>
                 <tbody>
-            <!-- to fill -->
+
+                <% for(let detail in details) { %>
+                  <tr>
+                    <td><%= details[detail].dish_name %></td>
+                    <td><%= details[detail].quantity %></td>
+                    <td><button class="btn btn-secondary">Send SMS</button></td>
+                  </tr>
+                <% } %>
+
                 </tbody>
               </table>
           </div>

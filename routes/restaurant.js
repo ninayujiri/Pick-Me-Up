@@ -97,27 +97,22 @@ module.exports = (knex) => {
         }
       });
 
-      console.log(outputData);
-
       res.status(200).json(outputData);
     });
   });
 
 
 
-
-
-
-
 // Order Details
 
-  router.get("/:restaurantID/orders/:orderID", (req,res) => {
-    res.render("../views/orders_id.ejs");
-  });
+  // router.get("/:restaurantID/orders/:orderID", (req,res) => {
+  //   res.render("../views/orders_id.ejs");
+  //   // res.render('orders_id', { data: detailsData });
+  // });
 
 
 //  Renders the order details table
-  router.get("/:restaurantID/orders/:orderID/fetch", (req,res) => {
+  router.get("/:restaurantID/orders/:orderID/", (req,res) => {
     const orderID = req.params.orderID;
     const detailsData = {};
 
@@ -141,9 +136,8 @@ module.exports = (knex) => {
         }
       });
 
-      // console.log(detailsData);
-
-      res.status(200).json(detailsData);
+      res.render('orders_id', { details: result });
+      // res.status(200).json(detailsData);
     });
   });
 
