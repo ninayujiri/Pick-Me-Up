@@ -1,12 +1,8 @@
 $( document ).ready(function(){
 
   let foods = new Object();
-  $('#reset').on('click', function(){
-    setReset();
-    foods = new Object();
-  });
 
-  /* start processing on click */
+  /* start cart processing on click */
   $(document).on("click",".add-foods",function(){
   const data      = $(this).data();          // defined data in button
   const quantity  = $(data.id).val();        // selected quqntity
@@ -20,7 +16,6 @@ $( document ).ready(function(){
       'id':data.number
    };
    cart_open();
-
   });
 
   /* create html for the contents of the cart */
@@ -41,6 +36,13 @@ $( document ).ready(function(){
     //$("#cart-detail").fadeIn();    //open the cart.
     //$("#data").val(data);        //set POST[data] with cart contents
 
+    /* reset cart items and name/phone# fields */
+    $('#reset').on('click', function(){
+      setReset();
+      foods = new Object();
+    });
+
+    /* place an order */
     $('#order').on('click',function(e){
       e.preventDefault();
       let validation = false;
