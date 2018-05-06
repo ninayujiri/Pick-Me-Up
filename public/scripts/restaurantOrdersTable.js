@@ -1,7 +1,5 @@
-
 // Generate Orders Table
 function generateTableRow(orderObj) {
-  // console.log(orderObj);
   const $row          = $("<tr>").addClass("table-white");
   const $orderNumber  = $("<td>").append($("<a>").text(orderObj.id).attr("href",`http://localhost:8080/restaurants/1/orders/${orderObj.id}`));
   const $customerName = $("<td>").text(orderObj.name);
@@ -37,15 +35,17 @@ $.get("/restaurants/1/orders/fetch", function(res) {
 
 $(document).ready(function(){
   $('tbody').on('click', 'button', function (event) {
-    // let phone_number = $(this).parent().find(".phone_number").text();
-    // event.preventDefault();
-    //   $.ajax({
-    //       method: 'PUT',
-    //       url: '/orders/' + phone_number,
-    //       data: {"phone_number": phone_number}
-    //     }).done(function () {
-    //       console.log('done');
-    //   });
+    let phone_number = $(this).parent().find(".phone_number").text();
+    event.preventDefault();
+      $.ajax({
+          method: 'PUT',
+          url: '/:restaurantID/orders/ready',
+          data: {"phone_number": phone_number}
+        }).done(function () {
+          console.log('done');
+      });
     $(this).parent().remove();
   });
 });
+
+
