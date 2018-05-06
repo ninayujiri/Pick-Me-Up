@@ -21,47 +21,45 @@ $( document ).ready(function(){
 
   /* create html for the contents of the cart */
   const cart_open = function(){
-  const cartContents = getCartContents(foods);
+    const cartContents = getCartContents(foods);
 
-  //add html elements to the top of the cart
-  $("#foods-list").html(cartContents);
+    //add html elements to the top of the cart
+    $("#foods-list").html(cartContents);
 
-  // reset cart items and name/phone# fields
-  $('#reset').on('click', function(){
-    setReset();
-    foods = new Object();
-  });
-
-    // place an order
-    $('#order').on('click',function(e){
-      e.preventDefault();
-      const user = $('#user').val();
-      const phoneNum = $('#phoneNum').val();
-
-      if(!user || !phoneNum || !foods){
-        processError();
-      } else {
-        const output = getCartInfo(foods, user, phoneNum);
-        $.ajax({
-          url: '/orders',
-          method: 'PUT',
-          data: output,
-          success: function(data, status, jqXHR){
-            if (status !== 'success') {
-              $errorMsg = 'There was an error. Please try again.';
-              throw 'Request was not a success';
-            } else {
-              window.location.href = '/confirmation';
-            }
-          }
-        })
-      }
+    // reset cart items and name/phone# fields
+    $('#reset').on('click', function(){
+      setReset();
+      foods = new Object();
     });
   }
+
+  /* place an order */
+  $('#order').on('click',function(e){
+    e.preventDefault();
+    const user = $('#user').val();
+    const phoneNum = $('#phoneNum').val();
+    if(!foods || !user || !phoneNum){
+      processError();
+    } else {
+      const output = getCartInfo(foods, user, phoneNum);
+      $.ajax({
+        url: '/orders',
+        method: 'PUT',
+        data: output,
+        success: function(data, status, jqXHR){
+          if (status !== 'success') {
+            $errorMsg = 'There was an error. Please try again.';
+            throw 'Request was not a success';
+          } else {
+            window.location.href = '/confirmation';
+          }
+        }
+      })
+    }
+  });
 });
 
 function getCartContents(dishes) {
-  const $default = dishes ? true : false;
   const $cart = $('<ul id="cart-contents" class="list-group mb-3">');
   let total = 0;
   for (let key in dishes) {
@@ -96,18 +94,14 @@ function getCartDefault() {
 function getCartInfo(menu, user, phone){
   let output = {};
   let orderInfo = [];
-  console.log(menu);
   for (let key in menu) {
     orderInfo.push({'dish_id': parseInt(menu[key].id),'quantity': parseInt(menu[key].quantity)});
-    // console.log(orderInfo);
   }
-  // console.log(orderInfo);
   output = {
     'userName': user,
     'phone_number': phone,
     'dishes': orderInfo
   }
-  // console.log(output);
   return output;
 }
 
