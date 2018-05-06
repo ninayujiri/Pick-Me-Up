@@ -152,41 +152,42 @@ module.exports = (knex, smsFunctions) => {
     });
   });
 
+
+
   router.put("/:restaurantID/orders/refresh", (req,res) => {
       const orderIDs = req.body.order_id;
       const restaurantID = req.params.restaurantID;
       const outputData = {};
 
+    knex.select('orders.id', 'order_items.quantity', 'dishes.dish_name', 'orders.created_at', 'accounts.name', 'accounts.phone_number', 'orders.payment_method')
+      .from('order_items')
+      .join('orders', 'order_items.order_id','=','orders.id')
+      .join('accounts', 'orders.account_id','=', 'accounts.id')
+      .join('dishes', 'order_items.dish_id','=','dishes.id')
+      .where({'dishes.account_id': restaurantID, 'orders.isComplete': false})
+      .whereNotIn('orders.id', orderIDs)
+      .then((result) => {
+        // console.log(result);
 
-  knex.select('orders.id', 'order_items.quantity', 'dishes.dish_name', 'orders.created_at', 'accounts.name', 'accounts.phone_number', 'orders.payment_method')
-    .from('order_items')
-    .join('orders', 'order_items.order_id','=','orders.id')
-    .join('accounts', 'orders.account_id','=', 'accounts.id')
-    .join('dishes', 'order_items.dish_id','=','dishes.id')
-    .where({'dishes.account_id': restaurantID, 'orders.isComplete': false})
-    .whereNotIn('orders.id', orderIDs)
-    .then((result) => {
-      // console.log(result);
-
-      result.forEach((element) => {
-        console.log(element);
-        if(!outputData[element.id]){
-          outputData[element.id] = {};
-          outputData[element.id].name = element.name;
-          outputData[element.id].id = element.id;
-          outputData[element.id].phone_number = element.phone_number;
-          outputData[element.id].created_at = element.created_at;
-        } else {
-          outputData[element.id].name = element.name;
-          outputData[element.id].id = element.id;
-          outputData[element.id].phone_number = element.phone_number;
-          outputData[element.id].created_at = element.created_at;
-        }
+        result.forEach((element) => {
+          console.log(element);
+          if(!outputData[element.id]){
+            outputData[element.id] = {};
+            outputData[element.id].name = element.name;
+            outputData[element.id].id = element.id;
+            outputData[element.id].phone_number = element.phone_number;
+            outputData[element.id].created_at = element.created_at;
+          } else {
+            outputData[element.id].name = element.name;
+            outputData[element.id].id = element.id;
+            outputData[element.id].phone_number = element.phone_number;
+            outputData[element.id].created_at = element.created_at;
+          }
+        });
+         // console.log(outputData);
+        res.status(200).json(outputData);
       });
-       // console.log(outputData);
-      res.status(200).json(outputData);
-    });
-  })
+    })
 
   return router;
 }
