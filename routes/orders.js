@@ -20,7 +20,6 @@ module.exports = (knex, smsFunctions)=>{
         name: userName,
         phone_number: phone_number
       }).returning('id')
-
        // adds the order to the orders table. returns the order id
       .then((account_id) => {
         knex('orders')
@@ -28,7 +27,6 @@ module.exports = (knex, smsFunctions)=>{
           created_at: new Date(),
           account_id: account_id[0]
         }).returning('id')
-
           //  adds the order items to the order_items table. sends sms if the procedure is successful
         .then((order_id) => {
           req.body.dishes.forEach((element) => {
@@ -40,7 +38,7 @@ module.exports = (knex, smsFunctions)=>{
           .insert(inputDishes)
           .then(() => {
             smsFunctions.smsRestaurant();
-            smsFunctions.smsCustomer(false)
+            smsFunctions.smsCustomer(false, phone_number)
           }).finally(()=> knex.destroy());
         })
       })
@@ -52,7 +50,6 @@ module.exports = (knex, smsFunctions)=>{
         created_at: new Date(),
         account_id: result[0].id
       }).returning('id')
-
       //  adds the order items to the order_items table. sends sms if the procedure is successful
       .then((order_id) => {
         req.body.dishes.forEach((element) => {
@@ -65,10 +62,11 @@ module.exports = (knex, smsFunctions)=>{
         .insert(inputDishes)
         .then(() => {
           smsFunctions.smsRestaurant();
-          smsFunctions.smsCustomer(false)
+          smsFunctions.smsCustomer(false, phone_number);
         }).finally(()=> knex.destroy());
       })
     }
   })
-  return router;
+})
+return router;
 }
