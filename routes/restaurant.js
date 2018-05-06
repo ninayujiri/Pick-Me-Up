@@ -96,9 +96,12 @@ module.exports = (knex, smsFunctions) => {
           outputData[element.id].created_at = element.created_at;
         }
       });
+      console.log(outputData);
       res.status(200).json(outputData);
     });
   });
+
+
 
  // Renders the order details table
   router.get("/:restaurantID/orders/:orderID/", (req,res) => {
@@ -149,12 +152,13 @@ module.exports = (knex, smsFunctions) => {
     });
   });
 
-  router.get("/:restaurantID/orders/refresh", (req,res) => {
-    const orderIDs = req.body.order_ids;
-    const restaurantID = req.params.restaurantID;
-    const outputData = {};
+  router.put("/:restaurantID/orders/refresh", (req,res) => {
+      const orderIDs = req.body.order_id;
+      const restaurantID = req.params.restaurantID;
+      const outputData = {};
 
-    knex.select('orders.id', 'order_items.quantity', 'dishes.dish_name', 'orders.created_at', 'accounts.name', 'accounts.phone_number', 'orders.payment_method')
+
+  knex.select('orders.id', 'order_items.quantity', 'dishes.dish_name', 'orders.created_at', 'accounts.name', 'accounts.phone_number', 'orders.payment_method')
     .from('order_items')
     .join('orders', 'order_items.order_id','=','orders.id')
     .join('accounts', 'orders.account_id','=', 'accounts.id')
@@ -162,9 +166,10 @@ module.exports = (knex, smsFunctions) => {
     .where({'dishes.account_id': restaurantID, 'orders.isComplete': false})
     .whereNotIn('orders.id', orderIDs)
     .then((result) => {
-
+      // console.log(result);
 
       result.forEach((element) => {
+        console.log(element);
         if(!outputData[element.id]){
           outputData[element.id] = {};
           outputData[element.id].name = element.name;
@@ -178,10 +183,10 @@ module.exports = (knex, smsFunctions) => {
           outputData[element.id].created_at = element.created_at;
         }
       });
+       // console.log(outputData);
       res.status(200).json(outputData);
     });
   })
-
 
   return router;
 }
