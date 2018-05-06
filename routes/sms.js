@@ -2,16 +2,14 @@
 
 const express = require('express');
 const router  = express.Router();
+const twilioInfo = require("../apiData/twilioInfo.js")
 
-module.exports = (twilioClient) => {
-  // twilioClient.messages.create({
-  //   body: "HOWS IT GOING BRUH??????????",
-  //   to:"this is a placeholder",
-  //   from: tokens.twilioNumber
-  // })
-  // .then((message) => console.log(message.sid));
+module.exports = (twilio, smsFunctions) => {
+  const MessagingResponse = twilio.twiml.MessagingResponse;
 
-  // return router;
+  router.post("/", (req,res) => {
+    const responseSMS = req.body.Body;
+    smsFunctions.smsCustomer(false, twilioInfo.personal_phone, responseSMS);
+  });
+ return router;
 }
-
-

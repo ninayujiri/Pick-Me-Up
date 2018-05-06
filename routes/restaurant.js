@@ -4,7 +4,7 @@ const express = require('express');
 const router  = express.Router();
 
 
-module.exports = (knex) => {
+module.exports = (knex, smsFunctions) => {
 
 //  Retrieves restaurant data when the page loads for the first time
   router.get("/", (req,res) => {
@@ -102,8 +102,7 @@ module.exports = (knex) => {
   });
 
 
-
-// Order Details
+  // Order Details
 
   // router.get("/:restaurantID/orders/:orderID", (req,res) => {
   //   res.render("../views/orders_id.ejs");
@@ -111,7 +110,7 @@ module.exports = (knex) => {
   // });
 
 
-//  Renders the order details table
+ // Renders the order details table
   router.get("/:restaurantID/orders/:orderID/", (req,res) => {
     const orderID = req.params.orderID;
     const detailsData = {};
@@ -140,6 +139,13 @@ module.exports = (knex) => {
       // res.status(200).json(detailsData);
     });
   });
+
+  router.put("/:restaurantID/orders/ready", (req, res) => {
+    const phone_number = req.body.phone_number;
+    smsFunctions.smsCustomer(true, phone_number);
+    res.status(200).send("OK");
+  })
+
 
   return router;
 }
