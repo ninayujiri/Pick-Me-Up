@@ -15,7 +15,6 @@ module.exports = (twilioClient) => {
 
       smsCustomer: (isReady, clientPhone, message) => {
                     if(!isReady && message){
-                      console.log("nor ready and message");
                       twilioClient.messages.create({
                         body: message,
                         to:clientPhone,
@@ -23,7 +22,6 @@ module.exports = (twilioClient) => {
                         })
                         .then((message) => console.log(message.sid));
                     } else if (!isReady){
-                      console.log("not ready");
                       twilioClient.messages.create({
                         body: "Your order is received by the restaurant.",
                         to:clientPhone,
@@ -31,7 +29,6 @@ module.exports = (twilioClient) => {
                         })
                         .then((message) => console.log(message.sid));
                     } else {
-                      console.log("ready");
                       twilioClient.messages.create({
                         body: "Your food is ready for pickup",
                         to:clientPhone,
