@@ -45,12 +45,13 @@ $( document ).ready(function(){
       $.ajax({
         url: '/orders',
         method: 'PUT',
+        cache: false,
         data: output,
         success: function(data, status, jqXHR){
           if (status !== 'success') {
             $errorMsg = 'There was an error. Please try again.';
             throw 'Request was not a success';
-          } else {
+           } else {
             window.location.href = '/confirmation';
           }
         }
