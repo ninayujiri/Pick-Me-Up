@@ -176,9 +176,12 @@ main {
 
 
 /* shopping cart */
-.cart.float-right {
-    padding-top: 2.7em;
+@media (min-width: 1200px) {
+    .cart.float-right {
+        padding-top: 2.7em;
+    }
 }
+
 .error {
     color: $color_red;
     font-size: 0.8em;

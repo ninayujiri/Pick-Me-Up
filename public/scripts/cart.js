@@ -1,5 +1,13 @@
 $( document ).ready(function(){
+  $('#phoneNum').inputmask('+1 (999) 999-9999');
+
   let foods = new Object();
+
+  // reset cart items and name/phone# fields
+  $('#reset').on('click', function(){
+    setReset();
+    foods = new Object();
+  });
 
   /* start cart processing on click */
   $(document).on("click",".add-foods",function(){
@@ -25,12 +33,6 @@ $( document ).ready(function(){
 
     //add html elements to the top of the cart
     $("#foods-list").html(cartContents);
-
-    // reset cart items and name/phone# fields
-    $('#reset').on('click', function(){
-      setReset();
-      foods = new Object();
-    });
   }
 
   /* place an order */
@@ -58,7 +60,37 @@ $( document ).ready(function(){
       })
     }
   });
+
+  // to have same height for menu cards
+  $(window).on('load', function(){
+    getHeight('.card-columns', 'h5 + .card-text');
+    getHeight('.card-columns', '.card-img-top');
+    getHeight('.card-columns', '.card-title');
+  });
+  // to have same height for menu cards - when resizing
+  var timer = false;
+  $(window).resize(function(){
+    if (timer !== false) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(function(){
+      getHeight('.card-columns', 'h5 + .card-text');
+      getHeight('.card-columns', '.card-img-top');
+      getHeight('.card-columns', '.card-title');
+    }, 200);
+  });
 });
+
+
+function getHeight(elem, grandChild) {
+  $(elem).each(function(i, box) {
+    let maxHeight = 0;
+    $(box).find(grandChild).each(function() {
+      if ($(this).height() > maxHeight) maxHeight = $(this).height();
+    });
+    $(box).find(grandChild).height(maxHeight);
+  });
+}
 
 function getCartContents(dishes) {
   const $cart = $('<ul id="cart-contents" class="list-group mb-3">');
@@ -69,12 +101,12 @@ function getCartContents(dishes) {
     const $h6 = $('<h6 class="my-0">').text(dishes[key].name).appendTo($div);
     const $br = $('<br />').appendTo($h6);
     const $small = $('<small class="text-muted">').text('Quantity: ' + dishes[key].quantity).appendTo($h6);
-    const $span = $('<span class="text-muted">').text('$ ' + comma( dishes[key].sub_total )).appendTo($li);
+    const $span = $('<span class="text-muted">').text('$' + comma( dishes[key].sub_total )).appendTo($li);
     total += dishes[key].sub_total;
   }
   const $li2 = $('<li class="list-group-item d-flex justify-content-between">').appendTo($cart);
   const $span2 = $('<span>').text('Total (USD)').appendTo($li2);
-  const $strong2 = $('<strong>').text('$ ' + comma( total )).appendTo($li2);
+  const $strong2 = $('<strong>').text('$' + comma( total )).appendTo($li2);
   return $cart;
 }
 
