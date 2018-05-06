@@ -40,7 +40,7 @@ module.exports = (knex, smsFunctions)=>{
           knex('order_items')
           .insert(inputDishes)
           .then(() => {
-            smsFunctions.smsRestaurant();
+            smsFunctions.smsRestaurant(userName, phone_number, inputDishes);
             smsFunctions.smsCustomer(false, phone_number)
             res.send();
           })
@@ -64,7 +64,8 @@ module.exports = (knex, smsFunctions)=>{
         knex('order_items')
         .insert(inputDishes)
         .then(() => {
-          smsFunctions.smsRestaurant();
+          console.log(inputDishes);
+          smsFunctions.smsRestaurant(userName, phone_number, inputDishes);
           smsFunctions.smsCustomer(false, phone_number);
           res.send()
         })

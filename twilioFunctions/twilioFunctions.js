@@ -4,9 +4,20 @@ const twilioInfo = require("../apiData/twilioInfo.js")
 
 module.exports = (twilioClient) => {
   return {
-    smsRestaurant: () => {
+    smsRestaurant: (userName, phone_number, dishes) => {
+                      console.log(dishes)
+                      let dishMessage = ''
+                      let message = ''
+
+                      dishes.forEach((element) =>{
+                        console.log(element);
+                        dishMessage += `${element.dish_name}: ${element.quantity}`
+                      });
+
+                      message +=`Customer Name: ${userName} phone number: ${phone_number}  dishes: ${dishMessage}`;
+
                       twilioClient.messages.create({
-                      body: "You have a new order",
+                      body: `You have a new order: \n ${message}`,
                       to:twilioInfo.personal_phone,
                       from: twilioInfo.twilioNumber
                       })
