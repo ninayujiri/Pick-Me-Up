@@ -9,6 +9,8 @@ module.exports = (knex, smsFunctions)=>{
     const userName = req.body.userName;
     const phone_number = req.body.phone_number;
     const inputDishes = [];
+    const dishIDs = [];
+    const dishSmsInfo = [];
 
 
   knex('accounts').where("phone_number", phone_number).select('phone_number', 'id')
@@ -40,9 +42,14 @@ module.exports = (knex, smsFunctions)=>{
           knex('order_items')
           .insert(inputDishes)
           .then(() => {
-            smsFunctions.smsRestaurant();
-            smsFunctions.smsCustomer(false, phone_number)
-            res.send();
+            knex.select('dishes.dish_name', 'order_items.quantity').from('dishes')
+            .join('order_items', 'order_items.dish_id', '=', 'dishes.id')
+            .where('order_items.order_id', inputDishes[0].order_id)
+            .then((result) => {
+              smsFunctions.smsRestaurant(userName, phone_number, result, inputDishes[0].order_id);
+              smsFunctions.smsCustomer(false, phone_number);
+              res.status(200).send();
+            })
           })
         })
       })
@@ -61,14 +68,20 @@ module.exports = (knex, smsFunctions)=>{
           element.order_id = order_id[0];
           inputDishes.push(element);
         });
+
         knex('order_items')
         .insert(inputDishes)
         .then(() => {
-          smsFunctions.smsRestaurant();
-          smsFunctions.smsCustomer(false, phone_number);
-          res.send()
+          knex.select('dishes.dish_name', 'order_items.quantity').from('dishes')
+          .join('order_items', 'order_items.dish_id', '=', 'dishes.id')
+          .where('order_items.order_id', inputDishes[0].order_id)
+          .then((result) => {
+            smsFunctions.smsRestaurant(userName, phone_number, result, inputDishes[0].order_id);
+            smsFunctions.smsCustomer(false, phone_number);
+            res.status(200).send();
+          })
         })
-       })
+      })
     }
   })
 })
