@@ -24,29 +24,39 @@ module.exports = (twilioClient) => {
                     },
 
       smsCustomer: (isReady, clientPhone, message) => {
-                    if(!isReady && message){
-                      twilioClient.messages.create({
-                        body: message,
-                        to:clientPhone,
-                        from: twilioInfo.twilioNumber
-                        })
-                        .then((message) => console.log(message.sid));
-                    } else if (!isReady){
-                      twilioClient.messages.create({
-                        body: "Your order is received by the restaurant.",
-                        to:clientPhone,
-                        from: twilioInfo.twilioNumber
-                        })
-                        .then((message) => console.log(message.sid));
-                    } else {
-                      twilioClient.messages.create({
-                        body: "Your food is ready for pickup",
-                        to:clientPhone,
-                        from: twilioInfo.twilioNumber
-                        })
-                        .then((message) => console.log(message.sid));
-                    }
+                      if(!isReady && message){
+                        twilioClient.messages.create({
+                          body: message,
+                          to:clientPhone,
+                          from: twilioInfo.twilioNumber
+                          })
+                          .then((message) => console.log(message.sid));
+                      } else if (!isReady){
+                        twilioClient.messages.create({
+                          body: "Your order is received by the restaurant.",
+                          to:clientPhone,
+                          from: twilioInfo.twilioNumber
+                          })
+                          .then((message) => console.log(message.sid));
+                      } else {
+                        twilioClient.messages.create({
+                          body: "Your food is ready for pickup",
+                          to:clientPhone,
+                          from: twilioInfo.twilioNumber
+                          })
+                          .then((message) => console.log(message.sid));
+                      }
+                    },
 
-    }
+        smsRedirect: (outboundNumber, responseSms) => {
+                      console.log(outboundNumber, responseSms)
+                       twilioClient.messages.create({
+                          body: responseSms,
+                          to:outboundNumber,
+                          from: twilioInfo.twilioNumber
+                          })
+                          .then((message) => console.log(message.sid));
+                      }
   }
 }
+
