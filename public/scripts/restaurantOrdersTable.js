@@ -66,7 +66,19 @@ $(document).ready(function(){
       order_ids.push(Number($(value).text()));
     })
 
-    setInterval(function(){
+    $.ajax({
+        method: 'PUT',
+        url: 'http://localhost:8080/restaurants/1/orders/refresh',
+        data: { "order_id": order_ids }
+      })
+      .done(function (data) {
+        renderRows(data);
+        console.log('data', data);
+        console.log('sent');
+    });
+  });
+
+  setInterval(function(){
 
     $.ajax({
         method: 'PUT',
@@ -74,14 +86,10 @@ $(document).ready(function(){
         data: { "order_id": order_ids }
       })
       .done(function (data) {
-        console.log('data', data);
         renderRows(data);
+        console.log('data', data);
         console.log('sent');
     });
-
-    }, 300000);
-
-
-  });
+  }, 300000);
 
 });
