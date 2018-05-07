@@ -74,10 +74,11 @@ $( document ).ready(function(){
       clearTimeout(timer);
     }
     timer = setTimeout(function(){
-      getHeight('.card-columns', 'h5 + .card-text');
-      getHeight('.card-columns', '.card-img-top');
-      getHeight('.card-columns', '.card-title');
-    }, 200);
+      location.reload();
+      // getHeight('.card-columns', 'h5 + .card-text');
+      // getHeight('.card-columns', '.card-img-top');
+      // getHeight('.card-columns', '.card-title');
+    }, 100);
   });
 });
 
