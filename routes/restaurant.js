@@ -3,6 +3,7 @@
 const express = require('express');
 const router  = express.Router();
 
+
 module.exports = (knex, smsFunctions) => {
 
 //  Retrieves restaurant data when the page loads for the first time
@@ -95,10 +96,11 @@ module.exports = (knex, smsFunctions) => {
           outputData[element.id].created_at = element.created_at;
         }
       });
-      console.log(outputData);
+      // console.log(outputData);
       res.status(200).json(outputData);
     });
   });
+
 
 
  // Renders the order details table
@@ -130,7 +132,6 @@ module.exports = (knex, smsFunctions) => {
     });
   });
 
-
   //  Sends sms to the customer when order is ready, updates the database
   router.put("/:restaurantID/orders/ready", (req, res) => {
     const phone_number = req.body.phone_number;
@@ -150,40 +151,38 @@ module.exports = (knex, smsFunctions) => {
     });
   });
 
-
   router.put("/:restaurantID/orders/refresh", (req,res) => {
       const orderIDs = req.body.order_id;
       const restaurantID = req.params.restaurantID;
       const outputData = {};
 
+    knex.select('orders.id', 'order_items.quantity', 'dishes.dish_name', 'orders.created_at', 'accounts.name', 'accounts.phone_number', 'orders.payment_method')
+      .from('order_items')
+      .join('orders', 'order_items.order_id','=','orders.id')
+      .join('accounts', 'orders.account_id','=', 'accounts.id')
+      .join('dishes', 'order_items.dish_id','=','dishes.id')
+      .where({'dishes.account_id': restaurantID, 'orders.isComplete': false})
+      .whereNotIn('orders.id', orderIDs)
+      .then((result) => {
 
-  knex.select('orders.id', 'order_items.quantity', 'dishes.dish_name', 'orders.created_at', 'accounts.name', 'accounts.phone_number', 'orders.payment_method')
-    .from('order_items')
-    .join('orders', 'order_items.order_id','=','orders.id')
-    .join('accounts', 'orders.account_id','=', 'accounts.id')
-    .join('dishes', 'order_items.dish_id','=','dishes.id')
-    .where({'dishes.account_id': restaurantID, 'orders.isComplete': false})
-    .whereNotIn('orders.id', orderIDs)
-    .then((result) => {
-
-      result.forEach((element) => {
-        // console.log(element);
-        if(!outputData[element.id]){
-          outputData[element.id] = {};
-          outputData[element.id].name = element.name;
-          outputData[element.id].id = element.id;
-          outputData[element.id].phone_number = element.phone_number;
-          outputData[element.id].created_at = element.created_at;
-        } else {
-          outputData[element.id].name = element.name;
-          outputData[element.id].id = element.id;
-          outputData[element.id].phone_number = element.phone_number;
-          outputData[element.id].created_at = element.created_at;
-        }
+        result.forEach((element) => {
+          console.log(element);
+          if(!outputData[element.id]){
+            outputData[element.id] = {};
+            outputData[element.id].name = element.name;
+            outputData[element.id].id = element.id;
+            outputData[element.id].phone_number = element.phone_number;
+            outputData[element.id].created_at = element.created_at;
+          } else {
+            outputData[element.id].name = element.name;
+            outputData[element.id].id = element.id;
+            outputData[element.id].phone_number = element.phone_number;
+            outputData[element.id].created_at = element.created_at;
+          }
+        });
+        res.status(200).json(outputData);
       });
-      res.status(200).json(outputData);
-    });
-  })
+    })
 
   return router;
 }
