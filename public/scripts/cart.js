@@ -69,7 +69,7 @@ $( document ).ready(function(){
   });
   // to have same height for menu cards - when resizing
   var timer = false;
-  $(window).resize(function(){
+  $(window).resize(function(e){
     if (timer !== false) {
       clearTimeout(timer);
     }
