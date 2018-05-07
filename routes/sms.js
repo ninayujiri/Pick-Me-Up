@@ -8,8 +8,10 @@ module.exports = (twilio, smsFunctions) => {
   const MessagingResponse = twilio.twiml.MessagingResponse;
 
   router.post("/", (req,res) => {
-    const responseSMS = req.body.Body;
-    smsFunctions.smsCustomer(false, twilioInfo.personal_phone, responseSMS);
+    console.log(req.body);
+    const outboundNumber = req.body.Body.slice(0,12);
+    const responseSMS = req.body.Body.slice(12);
+    smsFunctions.smsCustomer(false, incomingNumber, responseSMS);
   });
  return router;
 }
