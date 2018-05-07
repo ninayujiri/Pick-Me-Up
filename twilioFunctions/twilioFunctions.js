@@ -46,7 +46,15 @@ module.exports = (twilioClient) => {
                         })
                         .then((message) => console.log(message.sid));
                     }
+                  },
 
-    }
+        smsRedirect: (outboundNumber, responseSms) =>{
+                        twilioClient.messages.create({
+                          body: responseSms,
+                          to:outboundNumber,
+                          from: twilioInfo.twilioNumber
+                          })
+                          .then((message) => console.log(message.sid));
+                      }
   }
 }

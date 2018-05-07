@@ -28,7 +28,7 @@ const accountRoutes = require("./routes/accounts")(knex);
 const restoRoutes   = require("./routes/restaurant")(knex, smsFunctions);
 const ordersRoutes  = require("./routes/orders")(knex, smsFunctions);
 const dishesRoutes  = require("./routes/dishes")(knex);
-const smsRoutes        = require("./routes/sms.js")(twilio, smsFunctions);
+const smsRoutes        = require("./routes/sms.js")(twilio, smsFunctions, knex);
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
