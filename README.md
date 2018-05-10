@@ -10,6 +10,10 @@ An app to simplify the food ordering experience. It allows the customer to place
 
 ## Final Product
 
+!["Screenshot of Home Page"](https://github.com/kaanyalti/midterm/blob/master/docs/home.jpg?raw=true)
+!["GIF of Cart Page and Confirmation"](https://github.com/kaanyalti/midterm/blob/master/docs/cart.gif?raw=true)
+!["Screenshot of Orders Page(for Restaurant)"](https://github.com/kaanyalti/midterm/blob/master/docs/orders.jpg?raw=true)
+
 
 ## Getting Started
 
