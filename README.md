@@ -1,11 +1,11 @@
 # Pick Me Up Food Ordering App
 
-A web application built with Node, Express, AJAX, Twilio API, jQuery, HTML5, SASS, Bootstrap and Knex.js and PosgreSQL.
+A web application built with Node, Express, AJAX, jQuery, HTML5, SASS, Bootstrap, Knex.js, PostgreSQL and the Twilio API.
 
 
 ## Problem Statement
 
-An app to simplify the food ordering experience. It allows the customer to place an order online and recieve a text message when the order is ready to be picked up.
+An app to simplify the food ordering experience. It allows a user to place an order online and recieve a text message when their order is ready for pick up.
 
 
 ## Final Product
