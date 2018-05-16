@@ -10,14 +10,16 @@ An app to simplify the food ordering experience. It allows a user to place an or
 
 ## Final Product
 
-!["Screenshot of Home Page"](https://github.com/kaanyalti/midterm/blob/master/docs/home.jpg?raw=true)
-!["GIF of Cart Page and Confirmation"](https://github.com/kaanyalti/midterm/blob/master/docs/cart.gif?raw=true)
-!["Screenshot of Orders Page(for Restaurant)"](https://github.com/kaanyalti/midterm/blob/master/docs/orders.jpg?raw=true)
+!["Screenshot of Home Page"](https://github.com/ninayujiri/Pick-Me-Up/blob/master/docs/home.jpg?raw=true)
+!["GIF of Cart Page and Confirmation"](https://github.com/ninayujiri/Pick-Me-Up/blob/master/docs/cart.gif?raw=true)
+!["Screenshot of Orders Page(for Restaurant)"](https://github.com/ninayujiri/Pick-Me-Up/blob/master/docs/orders.jpg?raw=true)
+!["Screenshot of Order Details Page(for Restaurant)"](https://github.com/ninayujiri/Pick-Me-Up/blob/master/docs/orders-id.jpg?raw=true)
 
 
 ## Getting Started
 
 Install all dependencies (using `npm install`)
+Configure .env with `DB_HOST=localhost`, `DB_USER`, `DB_PASS`,`DB_NAME`, and `DB_PORT=5432`
 
 Setup the database:
 - Run `knex migrate:latest` in the terminal
