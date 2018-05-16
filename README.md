@@ -33,7 +33,7 @@ To use Twilio features:
 5. Set the request URL to your tunneled address
 6. Create a module that's linked to server.js and set the variables with your ngrok info. Set `twilioID , twilioToken, twilioNumber, and test_number`
 
-Run the development web server using `npm start`
+Run the development web server using `npm run local`
 
 Visit http://localhost:8080/
 
