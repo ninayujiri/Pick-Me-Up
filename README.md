@@ -18,8 +18,8 @@ An app to simplify the food ordering experience. It allows a user to place an or
 
 ## Getting Started
 
-Install all dependencies (using `npm install`)
-Configure .env with `DB_HOST=localhost`, `DB_USER`, `DB_PASS`,`DB_NAME`, and `DB_PORT=5432`
+- Install all dependencies (using `npm install`)
+- Configure .env with `DB_HOST=localhost`, `DB_USER`, `DB_PASS`,`DB_NAME`, and `DB_PORT=5432`
 
 Setup the database:
 - Run `knex migrate:latest` in the terminal
